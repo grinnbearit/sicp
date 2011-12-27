@@ -42,4 +42,9 @@
 
 
 ;;; phi = (1 + sqrt(5))/2, psi = (1 - sqrt(5))/2
-;;; Valid, therefore proved by induction
+;;; Valid
+
+;;; As n -> Inf+
+;;; psi -> 0
+
+;;; Therefore fib(n) approximates to phi^n/sqrt(5)
