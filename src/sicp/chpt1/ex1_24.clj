@@ -22,7 +22,7 @@
   [n]
   (letfn [(try-it [a]
             (= (expmod a n n) a))]
-    (try-it (+ 1 (int (rand 10))))))
+    (try-it (+ 1 (int (rand n))))))
 
 
 (defn prime?
