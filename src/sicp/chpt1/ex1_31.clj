@@ -18,15 +18,17 @@
 ;; (factorial 10) => 3628800
 
 
-(def pi
+(defn pi
+  [n]
   (letfn [(term [i]
             (if (odd? i)
-              (/ (+ (dec i) 2) (+ 2 i))
+              (/ (inc i) (+ i 2))
               (/ (+ i 2) (inc i))))]
-    (* 4 (product term 1 inc 1000))))
+
+    (* 4 (product term 1 inc n))))
 
 
-;; (float pi) => 3.1431608
+;; (float (pi 1000)) => 3.1431608
 
 
 (defn product-rec
