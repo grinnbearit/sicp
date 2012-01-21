@@ -7,8 +7,13 @@
 
 
 (defn integral
+  [f a b dx]
+  (* dx (reduce + (map f (range a b dx)))))
+
+
+(defn simpson-integral
   [f a b n]
-  (let [h (/ (- b a) n)]
+  (let [h (float (/ (- b a) n))]
     (* (/ h 3)
        (apply +
               (f a)
@@ -18,7 +23,12 @@
                    (cycle [4 2]))))))
 
 
-;; Clojure has rational arithmetic so both 100 and 1000 give the same result, 1/4
-;; (integral cube 0 1 100) => 1/4
-;; (integral cube 0 1 1000) => 1/4
+;; The Simpson integral is more accurate than the basic integral,
+;; it approximates a better result in the same number of iterations
+;;
+;; (integral cube 0 1 0.01) => 0.2450250000000004
+;; (integral cube 0 1 0.001) => 0.24950025000000053
+;;
+;; (simpson-integral cube 0 1 100) => 0.25666664394239663
+;; (simpson-integral cube 0 1 1000) => 0.25000004744995713
 
