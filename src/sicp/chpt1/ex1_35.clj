@@ -3,7 +3,13 @@
 
 ;; x -> 1 + 1/x
 ;; is a transformation whose fixed point is the solution to the equation
-;; x^2 = x + 1 which is also the definition for the golden ratio, phi
+;; x = 1 + 1/x
+
+;; which can be written as
+;; x = (x + 1)/x
+;; x^2 = x + 1
+
+;; which is also the definition for the golden ratio, phi
 
 
 (defn abs
