@@ -34,8 +34,7 @@
 (defn add
   [a b]
   (fn [f]
-    (fn [x]
-      ((comp (a f) (b f)) x))))
+    (comp (a f) (b f))))
 
 
 ;;; (church->int zero)
