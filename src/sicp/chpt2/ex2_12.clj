@@ -21,7 +21,7 @@
 
 (defn make-center-percent
   [c p]
-  (let [width (* (/ p 100) c)]
+  (let [width (Math/abs (* (/ p 100.0) c))]
     (make-interval (- c width)
                    (+ c width))))
 
@@ -36,6 +36,6 @@
 (defn percent
   [i]
   (let [c (center i)]
-    (* (/ (- (upper-bound i) c)
-          c)
-       100)))
+    (Math/abs (* (/ (- (upper-bound i) c)
+                    c)
+                 100.0))))
