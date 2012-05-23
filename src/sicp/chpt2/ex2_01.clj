@@ -1,4 +1,4 @@
-(ns sicp.chpt2.ex2-1)
+(ns sicp.chpt2.ex2-01)
 
 
 ;;; Using Clojure's records instead of a cons cell

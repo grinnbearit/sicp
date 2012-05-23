@@ -1,4 +1,4 @@
-(ns sicp.chpt1.ex1-7)
+(ns sicp.chpt1.ex1-07)
 
 
 ;;; good-enough is set to restrict the number of steps in evaluating an answer,

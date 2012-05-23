@@ -1,4 +1,4 @@
-(ns sicp.chpt1.ex1-6)
+(ns sicp.chpt1.ex1-06)
 
 
 ;;; (sqrt-iter (improve guess x) x)

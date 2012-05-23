@@ -1,4 +1,4 @@
-(ns sicp.chpt2.ex2-6)
+(ns sicp.chpt2.ex2-06)
 
 
 (defn church->int

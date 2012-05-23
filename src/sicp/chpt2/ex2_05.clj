@@ -1,4 +1,4 @@
-(ns sicp.chpt2.ex2-5)
+(ns sicp.chpt2.ex2-05)
 
 
 (defn cons

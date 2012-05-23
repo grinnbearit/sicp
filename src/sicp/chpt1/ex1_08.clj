@@ -1,4 +1,4 @@
-(ns sicp.chpt1.ex1-8)
+(ns sicp.chpt1.ex1-08)
 
 
 (defn sqr

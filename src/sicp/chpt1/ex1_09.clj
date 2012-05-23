@@ -1,4 +1,4 @@
-(ns sicp.chpt1.ex1-9
+(ns sicp.chpt1.ex1-09
   (:refer-clojure :exclude [+]))
 
 

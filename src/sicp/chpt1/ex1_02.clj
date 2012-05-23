@@ -1,4 +1,4 @@
-(ns sicp.chpt1.ex1-2)
+(ns sicp.chpt1.ex1-02)
 
 
 (/ (+ 5

@@ -1,4 +1,4 @@
-(ns sicp.chpt2.ex2-2)
+(ns sicp.chpt2.ex2-02)
 
 
 (defrecord Point [x y])

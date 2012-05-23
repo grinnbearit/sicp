@@ -1,4 +1,4 @@
-(ns sicp.chpt1.ex1-4)
+(ns sicp.chpt1.ex1-04)
 
 
 (defn a-plus-abs-b

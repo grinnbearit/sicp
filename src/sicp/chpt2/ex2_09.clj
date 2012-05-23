@@ -1,4 +1,4 @@
-(ns sicp.chpt2.ex2-9)
+(ns sicp.chpt2.ex2-09)
 
 
 (defrecord Interval [lb ub])

@@ -1,4 +1,4 @@
-(ns sicp.chpt1.ex1-1)
+(ns sicp.chpt1.ex1-01)
 
 
 10
