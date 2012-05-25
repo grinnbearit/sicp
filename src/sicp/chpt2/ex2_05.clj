@@ -1,4 +1,5 @@
-(ns sicp.chpt2.ex2-05)
+(ns sicp.chpt2.ex2-05
+  (:refer-clojure :exclude [cons]))
 
 
 (defn cons

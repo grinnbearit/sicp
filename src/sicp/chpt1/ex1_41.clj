@@ -1,4 +1,5 @@
-(ns sicp.chpt1.ex1-41)
+(ns sicp.chpt1.ex1-41
+  (:refer-clojure :exclude [double]))
 
 
 (defn double
