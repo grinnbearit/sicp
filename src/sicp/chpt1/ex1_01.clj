@@ -1,16 +1,22 @@
 (ns sicp.chpt1.ex1-01)
 
 
-10
-12
-8
-3
-6
-;;; a <=> 3
-;;; b <=> 4
-19
-false
-4
-16
-6
-16
+;;; The Clojure REPL works like any other Lisp REPL
+
+;;; When using `def`, the actual output would be the fully qualified var name
+;;; for example `#'user/a`, instead of just `'a`
+
+
+(println 10
+         12
+         8
+         3
+         6
+         'a
+         'b
+         19
+         false
+         4
+         16
+         6
+         16)
