@@ -1,12 +1,14 @@
 (ns sicp.chpt1.ex1-07)
 
 
-;;; good-enough is set to restrict the number of steps in evaluating an answer,
-;;; using a delta (even a small one) to check good-enough? works ok for numbers in
+;;; `good-enough?` is set to restrict the number of steps in evaluating an answer
+
+
+;;; Using a delta (even a small one) to check `good-enough?` works ok for numbers in
 ;;; a small range but very large numbers take a long time to converge (with much higher precision)
 ;;; while very small numbers take a small time to converge (with loss of precision).
 
-;;; the suggested implementation of good-enough? is much better at limiting to an equal precision
+;;; The suggested implementation of `good-enough?` is much better at limiting to an equal precision
 ;;; for both very large and very small numbers
 
 
