@@ -7,7 +7,7 @@
 ;;; for example `#'user/a`, instead of just `'a`
 
 
-(println 10
+(comment 10
          12
          8
          3
