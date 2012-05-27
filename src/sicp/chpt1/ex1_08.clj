@@ -1,6 +1,9 @@
 (ns sicp.chpt1.ex1-08)
 
 
+;;; Almost exactly like the sqrt implementation, the major change being in the implementation of `improve`
+
+
 (defn sqr
   [x]
   (* x x))
