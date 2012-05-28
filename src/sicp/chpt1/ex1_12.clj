@@ -1,21 +1,26 @@
 (ns sicp.chpt1.ex1-12)
 
 
-(defn row
-  "Given a position in Pascal's triangle (numbered left to right, top to bottom)
-returns the row number"
-  [n]
-  (nth (mapcat #(repeat % %)
-               (range 1 (inc n)))
-       (dec n)))
+;;; The recursion can be expressed as
+
+;;; * \\(pascal(row,1) = 1\\)
+;;; * \\(pascal(row,column) = 1, row = column\\)
+;;; * \\(pascal(row,column) = pascal(row-1,column-1) + pascal(row-1,column)\\)
+
+;;; where `row` is the row number and `column` the column number
 
 
-(defn pascal-n
-  "Returns the nth entry in Pascal's triangle"
-  [n]
-  (let [row-n (row n)
-        x-pos (- n row-n)
-        y-pos (inc x-pos)]
-    (if (or (zero? x-pos) (not= (row x-pos) (row y-pos)))
-      1
-      (+ (pascal-n x-pos) (pascal-n y-pos)))))
+(defn pascal
+  "Returns the entry in Pascal's triangle given by the coordinates (row, column)"
+  [row column]
+  (if (or (= 1 column)
+          (= row column))
+    1
+    (+ (pascal (dec row) (dec column)) (pascal (dec row) column))))
+
+
+(comment
+  (for [x (range 1 5) y (range 1 (inc x))]
+    (pascal x y)))
+
+;;;     => (1 1 1 1 2 1 1 3 3 1)
