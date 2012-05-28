@@ -1,6 +1,9 @@
 (ns sicp.chpt1.ex1-11)
 
 
+;;; Iterative functions store state explicitly while recursive ones use the function stack
+
+
 (defn f-recursive
   [n]
   (if (< n 3)
