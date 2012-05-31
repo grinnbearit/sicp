@@ -1,50 +1,76 @@
 (ns sicp.chpt1.ex1-13)
 
+;;; The fibonacci recursion can be expressed as
 
-;;; fib(n) = fib(n-1) + fib(n-2), fib(1) = 1, fib(2) = 2
+;;; * \\(fib(1) = 1\\)
+;;; * \\(fib(2) = 2\\)
+;;; * \\(fib(n) = fib(n-1) + fib(n-2)\\)
 
 ;;; To prove:
-;;; fib(n) = (phi^n - psi^n)/sqrt(5)
-;;; where phi = (1 + sqrt(5))/2
-;;;       psi = (1 - sqrt(5))/2
 
-;;; Testing:
-;;; fib(1) = 1, true
-;;; fib(2) = 2, true
+;;; \\(fib(n) = \frac{\phi^n - \psi^n}{\sqrt{5}}\\)
 
-;;; Assume fib(k-1), fib(k) is true
+;;; where
 
-;;; To prove fib(k+1) = fib(k) + fib(k-1)
-;;; fib(k-1) = (phi^(k-1) - psi^(k-1))/sqrt(5) + (phi^k - psi^k)/sqrt(5)
+;;; * \\(\phi = \frac{1 + \sqrt{5}}{2}\\)
+;;; * \\(\psi = \frac{1 - \sqrt{5}}{2}\\)
 
-;;; this can be rearranged as
-;;; (phi^k(1-phi) - psi^k(1-psi))/2
+;;; Base conditions:
 
-;;; fib(k+1) = fib(k) + fib(k-1) when phi/psi take the value of x in
-;;; x^k(1-x) = x^(k+1)
+;;; * \\(fib(1) = 1, true\\)
+;;; * \\(fib(2) = 2, true\\)
 
-;;; Solving for x
-;;; x^2 - x - 1 = 0
+;;; Assume \\(fib(k-1), fib(k)\\) is true
 
-;;; Roots
-;;; (1 + sqrt(5))/2, (1 - sqrt(5))/2
+;;; To prove
 
-;;; Possible combinations of phi and psi
+;;; \\(fib(k+1) = fib(k) + fib(k-1)\\)
 
-;;; phi = (1 - sqrt(5))/2, psi = (1 - sqrt(5))/2
-;;; Invalid, fib(n) = 0 for all n > 0
+;;; Substituting
 
-;;; phi = (1 + sqrt(5))/2, psi = (1 + sqrt(5))/2
-;;; Invalid, fib(n) = 0 for all n > 0
+;;; \\(fib(k+1) = \frac{\phi^k - \psi^k}{\sqrt{5}} + \frac{\phi^(k-1) - \psi^(k-1)}{\sqrt{5}}\\)
 
-;;; phi = (1 - sqrt(5))/2, psi = (1 + sqrt(5))/2
-;;; Invalid, fib(n) < 0 for all n > 0
+;;; Rearranging
+
+;;; \\(fib(k+1) = \frac{\phi^k(1+\frac{1}{\phi}) - \psi^k(1+\frac{1}{\psi})}{\sqrt{5}}\\)
+
+;;; This resolves to
+
+;;; \\(fib(k+1) = \frac{\phi^(k+1) - \psi^(k+1)}{\sqrt{5}}\\)
+
+;;; if and only if
+
+;;; * \\(1 + \frac{1}{\phi} = \phi\\)
+;;; * \\(1 + \frac{1}{\psi} = \psi\\)
+
+;;; Which can be represented as the solution to the equation
+
+;;; \\(x^2 - x - 1 = 0\\)
+
+;;; This equation has the roots
+
+;;; * \\(\frac{1 + \sqrt{5}}{2}\\)
+;;; * \\(\frac{1 - \sqrt{5}}{2}\\)
+
+;;; The different possible values which \\(\phi\\) and \\(\psi\\) can take
+
+;;; \\(\phi = \frac{1 - \sqrt{5}}{2}, \psi = \frac{1 - \sqrt{5}}{2}\\)
+
+;;; Invalid, \\(fib(n) = 0\\), \\(\forall\\) \\(n>0\\)
+
+;;; \\(\phi = \frac{1 + \sqrt{5}}{2}, \psi = \frac{1 + \sqrt{5}}{2}\\)
+
+;;; Invalid, \\(fib(n) = 0\\), \\(\forall\\) \\(n>0\\)
+
+;;; \\(\phi = \frac{1 - \sqrt{5}}{2}, \psi = \frac{1 + \sqrt{5}}{2}\\)
+
+;;; Invalid, \\(fib(n) < 0\\), \\(\forall\\) \\(n>0\\)
 
 
-;;; phi = (1 + sqrt(5))/2, psi = (1 - sqrt(5))/2
-;;; Valid
+;;; \\(\phi = \frac{1 + \sqrt{5}}{2}, \psi = \frac{1 - \sqrt{5}}{2}\\)
 
-;;; As n -> Inf+
-;;; psi -> 0
+;;; Valid, \\(\forall\\) \\(n>0\\)
 
-;;; Therefore fib(n) approximates to phi^n/sqrt(5)
+;;; For larger values of \\(n\\), \\(\psi\\) becomes negligible
+
+;;; Therefore \\(fib(n)\\) is approximately \\(\frac{\phi^n}{\sqrt{5}}\\)
