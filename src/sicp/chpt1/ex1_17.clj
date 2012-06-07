@@ -8,7 +8,7 @@
 (def halve #(bit-shift-right % 1))
 
 
-;;; Recursive version of fast-*
+;;; Recursive version of `fast-*`
 
 (defn fast-*
   [a b]
