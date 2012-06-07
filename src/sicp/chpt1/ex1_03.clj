@@ -13,11 +13,11 @@
 
 ;;; Each conditional step adds more information until we can make a decision
 
-;;; 1. x < y,z
-;;; 2. z < x < y
-;;; 3. y < x < z
-;;; 4. y < z < x
-;;; 5. z < y < x
+;;; 1. \\(x < y,z\\)
+;;; 2. \\(z < x < y\\)
+;;; 3. \\(y < x < z\\)
+;;; 4. \\(y < z < x\\)
+;;; 5. \\(z < y < x\\)
 
 
 (defn sum-of-greater-squares

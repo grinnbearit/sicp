@@ -32,14 +32,14 @@
 
 
 (defn f [n] (A 0 n))
-;;; (A 0 n) = 2*n
+;;; \\(A(0,n) = 2n\\)
 
 
 (defn g [n] (A 1 n))
-;;; (A 1 n) = 2^n
+;;; \\(A(1,n) = 2^n\\)
 
 
 (defn h [n] (A 2 n))
-;;; (A 2 n) = 2^2^2^2...n times
+;;; \\(A(2,n) = 2^{2^{2^{2...}}} n\\) times
 
-;;; (A 2 n) is called tetration, this is the next hyper operator after exponentiation
+;;; \\(A(2,n)\\) is called tetration, this is the next hyper operator after exponentiation
