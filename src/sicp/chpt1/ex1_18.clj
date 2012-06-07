@@ -8,8 +8,9 @@
 (def halve #(bit-shift-right % 1))
 
 
-;;; Iterative version of fast-*
-;;; Keeping b*a + n constant in every iteration
+;;; Iterative version of `fast-*`
+
+;;; Keeping \\(ba+n\\) constant in every iteration
 
 
 (defn fast-*
