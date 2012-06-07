@@ -1,7 +1,7 @@
 (ns sicp.chpt1.ex1-16)
 
 
-;;; Keeping b^n * a constant in every iteration
+;;; Keeping \\(b^na\\) constant in every iteration
 
 
 (defn fast-expt
