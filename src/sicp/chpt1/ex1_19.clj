@@ -1,32 +1,37 @@
 (ns sicp.chpt1.ex1-19)
 
 
-;;; for reference
+;;; The transformation \\(T _{pq}(p,q)\\) is defined as
 
-;;; Tpq(a,b)
-;;; a <- bq + aq + ap
-;;; b <- bp + aq
-
-
-;;; Applying Tpq twice
-
-;;; Tpq(Tpq(a,b))
-;;; Tpq(bq + aq + ap, bp + aq)
-
-;;; a <- bpq +aqq + bqq + aqq + apq + bpq + apq + app
-;;; b <- bpp + apq + bqq + aqq + apq
+;;; * \\(a \leftarrow bq + aq + ap\\)
+;;; * \\(b \leftarrow bp + aq\\)
 
 
-;;; In Tpq form
-;;; a <- b(2pq + qq) + a(2pq + qq) + a(pp + qq)
-;;; b <- b(pp + qq) + a(2pq + qq)
+;;; Applying \\(T _{pq}\\) twice,
 
-;;; Therefore p' and q' are
-;;; p' <- pp + qq
-;;; q' <- 2pq + qq
+;;; \\(T _{pq}(T _{pq}(a,b))\\)
+
+;;; which expands to
+
+;;; \\(T _{pq}(bq + aq + ap, bp + aq)\\)
+
+;;; finally giving us the transforms
+
+;;; * \\(a \leftarrow bpq +aq^2 + bq^2 + aq^2 + apq + bpq + apq + ap^2\\)
+;;; * \\(b \leftarrow bp^2 + apq + bq^2 + aq^2 + apq\\)
+
+;;; Grouping to reveal \\(T _{pq}\\) form, we get the new transforms
+
+;;; * \\(a \leftarrow b(2pq + q^2) + a(2pq + q^2) + a(p^2 + q^2)\\)
+;;; * \\(b \leftarrow b(p^2 + q^2) + a(2pq + q^2)\\)
+
+;;; So the new \\(T _{p'q'}\\), which is the same as applying \\(T _{pq}\\) twice is
+
+;;; * \\(p' \leftarrow p^2 + q^2\\)
+;;; * \\(q' \leftarrow 2pq + q^2\\)
 
 
-;;; Filling in the gaps
+;;; Filling in the gaps, here's `fib` with \\(O(log _2 n)\\)
 
 (defn fib
   ([n]
