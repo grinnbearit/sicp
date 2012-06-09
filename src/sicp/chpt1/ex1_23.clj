@@ -48,67 +48,68 @@
 
 ;; Each test was run 100,000 times before the time was recorded to account for HotSpot optimization
 
-;; (take 3 (find-timed-primes-between 1000 1000000000))
+;; `(take 3 (find-timed-primes-between 1000 1000000000))`
 ;;
-;; 1009 0.0207 msec
-;; 1013 0.01748 msec
-;; 1019 0.017589 msec
+;; * 1009, 0.0207 msec
+;; * 1013, 0.01748 msec
+;; * 1019, 0.017589 msec
 ;;
-;; average time taken 0.01859
+;; average time taken, 0.01859
 
-;; (take 3 (find-timed-primes-between 10000 1000000000))
+;; `(take 3 (find-timed-primes-between 10000 1000000000))`
 ;;
-;; 10007 0.053858 msec
-;; 10009 0.05361 msec
-;; 10037 0.053845 msec
+;; * 10007, 0.053858 msec
+;; * 10009, 0.05361 msec
+;; * 10037, 0.053845 msec
 ;;
-;; average time taken 0.05377
+;; average time taken, 0.05377
 
-;; (take 3 (find-timed-primes-between 100000 1000000000))
+;; `(take 3 (find-timed-primes-between 100000 1000000000))`
 ;;
-;; 100003 0.251168 msec
-;; 100019 0.239663 msec
-;; 100043 0.241405 msec
+;; * 100003, 0.251168 msec
+;; * 100019, 0.239663 msec
+;; * 100043, 0.241405 msec
 ;;
-;; average time taken 0.24408
+;; average time taken, 0.24408
 
-;; (take 3 (find-timed-primes-between 1000000 1000000000))
+;; `(take 3 (find-timed-primes-between 1000000 1000000000))`
 ;;
-;; 1000003 0.526431 msec
-;; 1000033 0.525764 msec
-;; 1000037 0.515357 msec
+;; * 1000003, 0.526431 msec
+;; * 1000033, 0.525764 msec
+;; * 1000037, 0.515357 msec
 ;;
-;; average time taken 0.52252
+;; average time taken, 0.52252
 
 
 ;; Taking the average ratios of each order of magnitude increase
 ;;
-;; (/ (+ (/ 0.05377 0.01859) (/ 0.24408 0.05377) (/ 0.52252 0.24408)) 3)
-;;
-;; we get 3.19084 which is roughly equal to (Math/sqrt 10)
+;; \\(\frac{\frac{0.05377}{0.01859} + \frac{0.24408}{0.05377} + \frac{0.52252}{0.24408}}{3} \rightarrow 3.19084\\)
+
+;; Which is roughly equal to \\(\sqrt{10}\\)
 
 
-;; Ratio of without-even-integers/with-all-integers
-;; > 1000
-;; (/ 0.01859 0.00232)
-;; 8.01293
+;; Ratio of `without-even-integers` to `with-all-integers`
 
-;; > 10000
-;; (/ 0.05377 0.00576)
-;; 9.33506
+;; for \\(n > 1000\\)
 
-;; > 100000
-;; (/ 0.24408 0.01769)
-;; 13.79763
+;; \\(\frac{0.01859}{0.00232} \rightarrow 8.01293\\)
 
-;; > 1000000
-;; (/ 0.52252 0.05313)
-;; 9.83474
+;; for \\(n > 10000\\)
 
-;; Average 10.24509 which is an order of magnitude worse than the original version
+;; \\(\frac{0.05377}{0.00576} \rightarrow 9.33506\\)
 
-;; I think this is because INC corresponds directly to a register increment which is a very fasy operation
-;; compared to 'ADD 2'. Even though the number of steps is halved, this difference shows by making this version an order of magnitude slower.
+;; for \\( n > 100000\\)
 
-;; This is only for smaller numbers though, as the input gets larger and larger, the halving of the number of steps will dominate
-;; Asymptotically, this algorithm should complete in half the time as the previous one
+;; \\(\frac{0.24408}{0.01769} \rightarrow 13.79763\\)
+
+;; for \\(n > 1000000\\)
+
+;; \\(\frac{0.52252}{0.05313} \rightarrow 9.83474\\)
+
+;; The average is 10.24509, which is an order of magnitude worse than the original version
+
+;; I think this is because `inc` corresponds directly to a register increment which is a very fast operation
+;; compared to `+`. Even though the number of steps is halved, this difference shows by making this version an order of magnitude slower.
+
+;; This is only for smaller numbers though, as the input gets larger and larger, the halving of the number of steps will dominate. Asymptotically,
+;; this algorithm should complete in half the time as the previous one
