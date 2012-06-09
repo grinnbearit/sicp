@@ -23,4 +23,4 @@
 
 ;;; \\(\log _3 a <= n\\)
 
-;;; Therefore the \\(O(sine)\\) is approximately \\(log _3 a\\), with `a` as input
+;;; Therefore the \\(O(sine)\\) is approximately \\(\log _3 a\\), with `a` as input
