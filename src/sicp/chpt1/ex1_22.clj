@@ -47,43 +47,42 @@
 
 ;; Each test was run 100,000 times before the time was recorded to account for HotSpot optimization
 
-;; (take 3 (find-timed-primes-between 1000 1000000000))
+;; `(take 3 (find-timed-primes-between 1000 1000000000))`
 ;;
-;; 1009 0.002619 msec
-;; 1013 0.002167 msec
-;; 1019 0.002177 msec
+;; * 1009, 0.002619 msec
+;; * 1013, 0.002167 msec
+;; * 1019, 0.002177 msec
 ;;
-;; average time taken 0.00232
+;; average time taken, 0.00232
 
-;; (take 3 (find-timed-primes-between 10000 1000000000))
+;; `(take 3 (find-timed-primes-between 10000 1000000000))`
 ;;
-;; 10007 0.006244 msec
-;; 10009 0.005459 msec
-;; 10037 0.005579 msec
+;; * 10007, 0.006244 msec
+;; * 10009, 0.005459 msec
+;; * 10037, 0.005579 msec
 ;;
-;; average time taken 0.00576
+;; average time taken, 0.00576
 
-;; (take 3 (find-timed-primes-between 100000 1000000000))
+;; `(take 3 (find-timed-primes-between 100000 1000000000))`
 ;;
-;; 100003 0.018717 msec
-;; 100019 0.017477 msec
-;; 100043 0.016873 msec
+;; * 100003, 0.018717 msec
+;; * 100019, 0.017477 msec
+;; * 100043, 0.016873 msec
 ;;
-;; average time taken 0.01769
+;; average time taken, 0.01769
 
-;; (take 3 (find-timed-primes-between 1000000 1000000000))
+;; `(take 3 (find-timed-primes-between 1000000 1000000000))`
 ;;
-;; 1000003 0.05348 msec
-;; 1000033 0.053039 msec
-;; 1000037 0.052869 msec
+;; * 1000003, 0.05348 msec
+;; * 1000033, 0.053039 msec
+;; * 1000037, 0.052869 msec
 ;;
-;; average time taken 0.05313
+;; average time taken, 0.05313
 
 ;; Taking the average ratios of each order of magnitude increase
 ;;
-;; (/ (+ (/ 0.00576 0.00232) (/ 0.01769 0.00576) (/ 0.05313 0.01769)) 3)
-;;
-;; we get 2.85244 which is roughly equal to (Math/sqrt 10)
+;; \\(\frac{\frac{0.00576}{0.00232} + \frac{0.01769}{0.00576} + \frac{0.05313}{0.01769}}{3} \rightarrow 2.85244\\)
 
+;; Which is roughly equal to \\(\sqrt{10}\\)
 
-;; This supports the sqrt(n) prediction and shows that runtime is proportional to number of steps
+;; This supports the \\(\sqrt{n}\\) prediction and shows that runtime is proportional to number of steps
