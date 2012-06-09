@@ -6,7 +6,6 @@
   (zero? (rem a b)))
 
 
-;;; Using multi arity functions instead
 (defn find-smallest-divisor
   ([n]
      (find-smallest-divisor n 2))
@@ -21,11 +20,11 @@
            (recur n (inc test-divisor)))))
 
 
-;;; (find-smallest-divisor 199)
-;;; => 199
-
-;;; (find-smallest-divisor 1999)
-;;; => 1999
-
-;;; (find-smallest-divisor 19999)
-;;; => 7
+;;;     (find-smallest-divisor 199)
+;;;     => 199
+;;;
+;;;     (find-smallest-divisor 1999)
+;;;     => 1999
+;;;
+;;;     (find-smallest-divisor 19999)
+;;;     => 7
