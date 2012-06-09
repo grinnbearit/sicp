@@ -1,7 +1,7 @@
 (ns sicp.chpt1.ex1-28)
 
 
-;; With great help from http://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
+;; With lots of help from [Miller Rabin primality test](http://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test)
 
 
 (defn square
@@ -27,7 +27,7 @@
 
 
 (defn factor-2s
-  "Returns [s d] which is n in the form (2^s)*d"
+  "Returns the tuple `[s d]` which is `n` in the form (2^s)*d"
   [n]
   (loop [t 0 d n]
     (if (divides? d 2)
@@ -64,22 +64,45 @@
        (every? true?)))
 
 
+;; known primes and non primes
+
+;;     (miller-rabin-prime? 1009)
+;;     => false (Not sure why the test fails here, 1009 is prime)
+
+;;     (miller-rabin-prime? 1011)
+;;     => false
+
+;;     (miller-rabin-prime? 10007)
+;;     => true
+
+;;     (miller-rabin-prime? 10011)
+;;     => false
+
+;;     (miller-rabin-prime? 1000003)
+;;     => true
+
+;;     (miller-rabin-prime? 1000007)
+;;     => false
+
 ;; Carmichael numbers
 
-;; (miller-rabin-prime? 1009) => false (Not sure why the test fails here, 1009 is prime)
-;; (miller-rabin-prime? 1011) => false
-;; (miller-rabin-prime? 10007) => true
-;; (miller-rabin-prime? 10011) => false
-;; (miller-rabin-prime? 1000003) => true
-;; (miller-rabin-prime? 1000007) => false
+;;     (miller-rabin-prime? 561)
+;;     => true
 
-;; (miller-rabin-prime? 561) => true
-;; (miller-rabin-prime? 1105) => true
-;; (miller-rabin-prime? 1729) => true
-;; (miller-rabin-prime? 2465) => true
-;; (miller-rabin-prime? 2821) => true
-;; (miller-rabin-prime? 6601) => true
+;;     (miller-rabin-prime? 1105)
+;;     => true
+
+;;     (miller-rabin-prime? 1729)
+;;     => true
+
+;;     (miller-rabin-prime? 2465)
+;;     => true
+
+;;     (miller-rabin-prime? 2821)
+;;     => true
+
+;;     (miller-rabin-prime? 6601)
+;;     => true
 
 
 ;; None of the Carmichael numbers in the footnote fool the miller-rabin-prime test
-
