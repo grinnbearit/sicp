@@ -8,3 +8,7 @@
               result
               (recur (next a) (+ (term a) result))))]
     (iter a 0)))
+
+
+;;     (sum identity 1 inc 10)
+;;     => 55
