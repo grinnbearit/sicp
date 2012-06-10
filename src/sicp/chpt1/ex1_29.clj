@@ -23,12 +23,17 @@
                    (cycle [4 2]))))))
 
 
-;; The Simpson integral is more accurate than the basic integral,
+;; Simpson's integral is more accurate than the basic integral from earlier,
 ;; it approximates a better result in the same number of iterations
 ;;
-;; (integral cube 0 1 0.01) => 0.2450250000000004
-;; (integral cube 0 1 0.001) => 0.24950025000000053
+;;     (integral cube 0 1 0.01)
+;;     => 0.2450250000000004
 ;;
-;; (simpson-integral cube 0 1 100) => 0.25666664394239663
-;; (simpson-integral cube 0 1 1000) => 0.25000004744995713
-
+;;     (integral cube 0 1 0.001)
+;;     => 0.24950025000000053
+;;
+;;     (simpson-integral cube 0 1 100)
+;;     => 0.25666664394239663
+;;
+;;     (simpson-integral cube 0 1 1000)
+;;     => 0.25000004744995713
