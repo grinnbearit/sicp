@@ -15,7 +15,8 @@
   (product identity 1 inc n))
 
 
-;; (factorial 10) => 3628800
+;;     (factorial 10)
+;;     => 3628800
 
 
 (defn pi
@@ -28,7 +29,8 @@
     (* 4 (product term 1 inc n))))
 
 
-;; (float (pi 1000)) => 3.1431608
+;;     (float (pi 1000))
+;;     => 3.1431608
 
 
 (defn product-rec
@@ -44,4 +46,5 @@
   (product-rec identity 1 inc n))
 
 
-;; (factorial-rec 10) => 3628800
+;;     (factorial-rec 10)
+;;     => 3628800
