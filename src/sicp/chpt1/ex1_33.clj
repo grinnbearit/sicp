@@ -27,6 +27,10 @@
     (filtered-accumulate + 0 square a inc b prime?)))
 
 
+;;     (sum-squares-of-primes 1 10)
+;;     => 88
+
+
 (defn prod-coprime
   [n]
   (letfn [(coprime? [x]
@@ -35,7 +39,12 @@
     (filtered-accumulate * 1 identity 2 inc (dec n) coprime?)))
 
 
-;; scaffolding
+;;     (prod-coprime 10)
+;;     => 189
+
+
+
+;; scaffolding below this point
 
 
 (defn prime?
