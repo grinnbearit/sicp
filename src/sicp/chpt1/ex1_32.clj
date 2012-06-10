@@ -15,9 +15,17 @@
   (accumulate + 0 term a next b))
 
 
+;;     (sum identity 1 inc 10)
+;;     => 55
+
+
 (defn product
   [term a next b]
   (accumulate * 1 term a next b))
+
+
+;;     (product identity 1 inc 10)
+;;     => 3628800
 
 
 (defn accumulate-rec
