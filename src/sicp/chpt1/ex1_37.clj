@@ -11,21 +11,24 @@
 
 
 
-;;; phi is 1.61803399
-;;; 1/phi is 0.61803398
+;;; \\(\phi \approx 1.61803399\\)
+
+;;; \\(\frac{1}{\phi} \approx 0.61803398\\)
 
 
-(defn phi
+(defn phi-inverse
   [k]
   (cont-frac (constantly 1)
              (constantly 1)
              k))
 
-;;; (float (phi 11))
-;;; with k = 11, we get 4 digits after the decimal point of accuracy
+;;;     (float (phi-inverse 11))
+;;;     => 0.6180556
+
+;;; when k is 11, we get 4 digits after the decimal point of accuracy
 
 
-;;; an iterative solution
+;;; an iterative version of `cont-frac` follows
 
 (defn cont-frac-iter
   ([n d k]
