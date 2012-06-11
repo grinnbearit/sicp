@@ -1,19 +1,20 @@
 (ns sicp.chpt1.ex1-35)
 
 
-;; x -> 1 + 1/x
+;; \\(x \rightarrow 1 + \frac{1}{x}\\)
+
 ;; is a transformation whose fixed point is the solution to the equation
-;; x = 1 + 1/x
 
-;; which can be written as
-;; x = (x + 1)/x
-;; x^2 = x + 1
+;; \\(x = 1 + \frac{1}{x}\\)
 
-;; which is also the definition for the golden ratio, phi
+;; \\(\Rightarrow x = \frac{x + 1}{x}\\)
+
+;; \\(\Rightarrow x^2 = x + 1\\)
+
+;; which is also the definition for the golden ratio, \\(\phi\\)
 
 
 (defn abs
-  "Because Math/abs does not work for rationals"
   [x]
   (if (< x 0)
     (- x)
@@ -38,3 +39,7 @@
 
 (def phi
   (fixed-point (fn [x] (+ 1 (/ x))) 1))
+
+
+;;     (float phi)
+;;     => 1.6180328
