@@ -8,4 +8,5 @@
     (f (f x))))
 
 
-;; (((double (double double)) inc) 5) => 21
+;;;     (((double (double double)) inc) 5)
+;;;     => 21
