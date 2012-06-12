@@ -14,4 +14,5 @@
           (recur (comp f g) (dec i)))))
 
 
-;; ((repeated #(* % %) 2) 5) => 625
+;;;     ((repeated #(* % %) 2) 5)
+;;;     => 625
