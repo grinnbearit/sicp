@@ -2,7 +2,6 @@
 
 
 (defn abs
-  "Because Math/abs does not work for rationals"
   [x]
   (if (< x 0)
     (- x)
@@ -57,4 +56,9 @@
        c)))
 
 
-;;; (newton-method (cubic 1 1 1) 1) => -1.0
+
+;;;     ((cubic 1 2 3) 1)
+;;;     => 7
+
+;;;     (newton-method (cubic 1 1 1) 1)
+;;;     => -1.0
