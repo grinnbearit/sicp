@@ -38,5 +38,8 @@
     (iterative-improve good-enough? improve-guess)))
 
 
-;; (sqrt 10) -> 3.162277665175675
-;; ((fixed-point (fn [x] (+ 1 (/ x)))) 1.0) -> 1.6179775280898876
+;;     (sqrt 10)
+;;     => 3.162277665175675
+
+;;     ((fixed-point (fn [x] (+ 1 (/ x)))) 1.0)
+;;     => 1.6179775280898876
