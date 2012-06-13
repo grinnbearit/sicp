@@ -47,3 +47,8 @@
         y2 (y-point p2)]
     (make-point (/ (+ x1 x2) 2)
                 (/ (+ y1 y2) 2))))
+
+
+;;;     (midpoint (make-segment (make-point 0 0)
+;;;                             (make-point 2 2)))
+;;;     => #sicp.chpt2.ex2_02.Point{:x 1, :y 1}
