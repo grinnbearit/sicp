@@ -37,9 +37,11 @@
   (.p2 s))
 
 
-;;; For the sake of simplicity, assume the sides of the rectangle always perpendicular to the coordinate axes
+;;; For the sake of simplicity, assume the sides of the rectangle are always perpendicular to the coordinate axes
 
-;;; storing only the diagonal, for a general rectangle, the angle to the base would also be needed.
+;;; Here we're storing only the diagonal, for a general rectangle definition, the angle between a side and an axis
+;;; would also be needed.
+
 (defrecord Rectangle [diag])
 
 
@@ -48,7 +50,8 @@
   (Rectangle. diag))
 
 
-;;; calculating the other points whenever rectangle-points is called
+;;; Calculate the other points whenever `rectangle-points` is called
+
 (defn rectangle-points
   [rect]
   (let [diag (.diag rect)
@@ -61,8 +64,9 @@
     [a b c d]))
 
 
+;;; `distance` returns the Euclidean distance between 2 points
+
 (defn distance
-  "Returns the Euclidean distance between 2 points"
   [p1 p2]
   (letfn [(sqr [x]
             (* x x))]
@@ -86,14 +90,15 @@
     (* (distance a b)
        (distance b c))))
 
-(comment
-  (let [rect (make-rectangle (make-segment (make-point 1 1)
-                                           (make-point 0 0)))]
-    {:perimeter (perimeter rect)        ; => 4.0
-     :area (area rect)}))               ; => 1.0
+;;     (let [rect (make-rectangle (make-segment (make-point 1 1)
+;;                                              (make-point 0 0)))]
+;;       {:perimeter (perimeter rect)
+;;        :area (area rect)})
+;;     => {:perimeter 4.0, :area 1.0}
 
 
-;;; Changing how rectangle is stored to store all 4 points
+;;; Changing how rectangles are stored to store all 4 points
+
 (defrecord Rectangle [a b c d])
 
 
@@ -108,19 +113,23 @@
     (Rectangle. a b c d)))
 
 
-;;; calculating the other points whenever rectangle-points is called
+;;; All the points are already stored, they just need to be returned
+
 (defn rectangle-points
   [rect]
   [(.a rect) (.b rect) (.c rect) (.d rect)])
 
 
-(comment
-  (let [rect (make-rectangle (make-segment (make-point 1 1)
-                                           (make-point 0 0)))]
-    {:perimeter (perimeter rect)        ; => 4.0
-     :area (area rect)}))               ; => 1.0
+;;     (let [rect (make-rectangle (make-segment (make-point 1 1)
+;;                                              (make-point 0 0)))]
+;;       {:perimeter (perimeter rect)
+;;        :area (area rect)})
+;;     => {:perimeter 4.0, :area 1.0}
 
 
 ;;; The trade off here is between memory and performance.
-;;; The first structure stored the minimum required data but needed to calculate all 4 points everytime rectangle-points was called.
-;;; The second approach calculated all 4 points just once but needed to store double the data.
+
+;;; The diagonal rectangle stored the minimum required data but needed to calculate all
+;;; 4 points everytime `rectangle-points` was called.
+
+;;; The point approach calculated all 4 points just once but needed to store twice the number of points.
