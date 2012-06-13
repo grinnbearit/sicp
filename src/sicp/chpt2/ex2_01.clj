@@ -1,7 +1,9 @@
 (ns sicp.chpt2.ex2-01)
 
 
-;;; Using Clojure's records instead of a cons cell
+;;; Using Clojure's records instead of cons cells as a means of combination
+
+
 (defrecord Rational [n d])
 
 
@@ -20,3 +22,7 @@
                     (- div)
                     div)]
     (Rational. (/ n n-div) (/ d n-div))))
+
+
+;;;     (make-rat 10 20)
+;;;     => #sicp.chpt2.ex2_01.Rational{:n 1, :d 2}
