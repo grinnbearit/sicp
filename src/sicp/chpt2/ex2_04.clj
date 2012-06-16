@@ -12,14 +12,32 @@
   (z (fn [x y] x)))
 
 
+;;; The corresponding definition of cdr
+
+
 (defn cdr
   [z]
   (z (fn [x y] y)))
 
 
-;;; (cons 2 3)
-;;; (car (cons 2 3))
-;;; => 2
+;;;     (car (cons 2 3))
+;;;     => 2
 
-;;; (cdr (cons 2 3))
-;;; => 3
+;;;     (cdr (cons 2 3))
+;;;     => 3
+
+
+;;; Using the substitution model
+
+;;;     (car (cons 2 3))
+;;;     # (car (fn [m] (m 2 3)))
+;;;     # ((fn [m] (m 2 3)) (fn [x y] x))
+;;;     # ((fn [x y] x) 2 3)
+;;;     => 2
+
+
+;;;     (cdr (cons 2 3))
+;;;     # (cdr (fn [m] (m 2 3)))
+;;;     # ((fn [m] (m 2 3)) (fn [x y] y))
+;;;     # ((fn [x y] y) 2 3)
+;;;     => 3
