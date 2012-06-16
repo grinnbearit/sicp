@@ -17,10 +17,10 @@
 
 ;;; `(sine a)` will make at most \\(n\\) calls to `p` where \\(n\\) satisfies the equation
 
-;;; \\(\frac{a}{3^n} <= 0.1\\)
+;;; \\(\frac{a}{3^n} \leq 0.1\\)
 
 ;;; Solving for \\(n\\)
 
-;;; \\(\log _3 a <= n\\)
+;;; \\(\log _3 a \leq n\\)
 
 ;;; Therefore the \\(O(sine)\\) is approximately \\(\log _3 a\\), with `a` as input
