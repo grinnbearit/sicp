@@ -39,3 +39,10 @@
     (Math/abs (* (/ (- (upper-bound i) c)
                     c)
                  100.0))))
+
+
+;;     (center (make-center-percent 100 10))
+;;     => 100
+
+;;     (percent (make-center-percent 100 10))
+;;     => 10.0
