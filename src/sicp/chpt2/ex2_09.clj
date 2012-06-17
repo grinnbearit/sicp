@@ -61,30 +61,41 @@
         (lower-bound x))
      2))
 
-;;; switching to infix for arithmetic
 
-;;; let x, y be two intervals
-;;; let lb be lower-bound
-;;; let ub be upper-bound
-;;; (width x) => [(ub x) - (lb x)]/2
-;;; (width y) => [(ub y) - (lb y)]/2
+;;; Aliasing `lower-bound` as `lb` and `upper-bound` as `ub`
 
-;;; let z be (add-interval x y)
-;;; (lb z) => (lb x) + (lb y)
-;;; (ub z) => (ub x) + (ub y)
+;;; let `x` and `y` be two intervals
 
-;;; (width z) => [(ub z) - (lb z)]/2
-;;;           => [((ub x) + (ub y)) - ((lb x) + (lb y))]/2
-;;;           => [(ub x) + (ub y) - (lb x) - (lb y)]/2
-;;;           => [(ub x) - (lb x) + (ub y) - (lb y)]/2
-;;;           => [(ub x) - (lb x)]/2 + [(ub y) - (lb y)]/2
-;;;           => (width x) + (width y)
+;;; * \\(width(x) = \frac{ub(x) - lb(x)}{2}\\)
+;;; * \\(width(y) = \frac{ub(y) - lb(y)}{2}\\)
 
-;;; Therefore (width (add-interval x y)) => (+ (width x) (width y))
+;;; let z be `(add-interval x y)`
+
+;;; * \\(lb(z) = lb(x) + lb(y)\\)
+;;; * \\(ub(z) = ub(x) + ub(y)\\)
+
+
+;;; Expanding \\(width(z)\\)
+
+;;; \\(\Rightarrow \frac{ub(z) - lb(z)}{2}\\)
+
+;;; \\(\Rightarrow \frac{(ub(x) + ub(y)) - (lb(x) + lb(y))}{2}\\)
+
+;;; \\(\Rightarrow \frac{ub(x) + ub(y) - lb(x) - lb(y)}{2}\\)
+
+;;; \\(\Rightarrow \frac{ub(x) - lb(x) + ub(y) - lb(y)}{2}\\)
+
+;;; \\(\Rightarrow \frac{ub(x) - lb(x)}{2} + \frac{ub(y) - lb(y)}{2}\\)
+
+;;; \\(\Rightarrow width(x) + width(y)\\)
+
+;;; Therefore
+
+;;; \\(width(x + y) \Rightarrow  width(x) + width(y)\\)
 
 ;;; Similarly for subtraction
 
 
-;;; For multiplication/division, the max and min of the products of the bounds are taken,
-;;; therefore the width of the multiplication/division of 2 intervals
+;;; For multiplication or division, the max and min of the products of the bounds are taken,
+;;; therefore the width of the multiplication or division of 2 intervals
 ;;; isn't a  multiplication or division of the widths of the bounds of the intervals
