@@ -41,3 +41,8 @@
       (mul-interval x
                     (make-interval (/ (lower-bound y))
                                    (/ (upper-bound y)))))))
+
+
+;;     (div-interval (make-interval 2 3)
+;;                   (make-interval -1 1))
+;;     => *Divide by zero*
