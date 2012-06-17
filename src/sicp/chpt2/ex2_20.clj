@@ -1,7 +1,7 @@
 (ns sicp.chpt2.ex2-20)
 
 
-;;; recursive
+;;; __Recursive__
 
 
 (defn same-parity
@@ -17,7 +17,7 @@
         (apply same-parity x (rest xs))))
 
 
-;;; iterative
+;;; __Iterative__
 
 
 (defn- same-parity-iter
@@ -37,7 +37,7 @@
   (same-parity-iter x xs []))
 
 
-;;; other implementations
+;;; __Other Implementations__
 
 
 (defn same-parity
