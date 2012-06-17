@@ -45,5 +45,5 @@
 ;;; with the same denomination list but with the amount reduced by the
 ;;; first value in the demoniation list
 
-;;; Both functions make the assumption that the initial order doesn't change,
-;;; they track the state of the system that way.
+;;; Both functions make the assumption that the initial order doesn't change and
+;;; track the state of the system that way.
