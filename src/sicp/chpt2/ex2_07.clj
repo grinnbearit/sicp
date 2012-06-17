@@ -17,3 +17,10 @@
 (defn upper-bound
   [i]
   (.ub i))
+
+
+;;     (lower-bound (make-interval 2 3))
+;;     => 2
+
+;;     (upper-bound (make-interval 2 3))
+;;     => 3
