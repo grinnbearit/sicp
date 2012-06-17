@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [reverse]))
 
 
-;;; recursive
+;;; __Recursive__
 
 
 (defn reverse
@@ -12,7 +12,7 @@
     (conj (reverse l) (first l))))
 
 
-;;; iterative
+;;; __Iterative__
 
 
 (defn reverse
@@ -24,7 +24,7 @@
        (recur (rest l) (conj acc (first l))))))
 
 
-;;; other implementations
+;;; __Other Implementations__
 
 
 (def reverse clojure.core/reverse)
