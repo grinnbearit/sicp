@@ -8,7 +8,7 @@
     (recur (rest l))))
 
 
-;;; other implementations
+;;; __Other Implementations__
 
 
 (def last-pair
