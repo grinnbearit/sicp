@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ "$1" = "--deploy" -o "$1" = "-d" ]; then
+    commit=`git log -n 1 | head -n 1 | cut -f2 -d ' '`
+fi
+lein marg
+cp docs/uberdoc.html temp.html
+git stash
+git checkout gh-pages
+rm index.html
+mv temp.html index.html
+if [ "$1" = "--deploy" -o "$1" = "-d" ]; then
+git add index.html
+`git commit -m '$commit'`
+fi
+open index.html
