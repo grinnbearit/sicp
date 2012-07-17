@@ -7,9 +7,9 @@
 
 (defn reverse
   [l]
-  (if (empty l)
-    ()
-    (conj (reverse l) (first l))))
+  (if (empty? l)
+    []
+    (conj (reverse (rest l)) (first l))))
 
 
 ;;; __Iterative__
