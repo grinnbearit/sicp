@@ -10,6 +10,6 @@ rm index.html
 mv temp.html index.html
 if [ "$1" = "--deploy" -o "$1" = "-d" ]; then
 git add index.html
-`git commit -m '$commit'`
+`git commit -m "$commit"`
 fi
 open index.html
