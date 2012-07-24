@@ -1,14 +1,9 @@
-(ns sicp.chpt1.ex1-36)
-
-
-(defn abs
-  [x]
-  (if (< x 0)
-    (- x)
-    x))
+(ns sicp.chpt1.ex1-36
+  (:use [sicp.chpt1.ex1-07 :only [abs]]))
 
 
 (def tolerance 1/100000)
+
 
 (defn fixed-point
   [f first-guess]
@@ -29,12 +24,14 @@
 
 ;;; \\(x \rightarrow \frac{\log 1000}{\log x}\\)
 
+
 (defn without-damping
   []
   (fixed-point (fn [x]
                  (/ (Math/log 1000)
                     (Math/log x)))
                10))
+
 
 ;;; without damping takes 32 steps to converge
 
@@ -81,6 +78,7 @@
 
 ;;; \\(\Rightarrow x \rightarrow \frac{x\log x + \log 1000}{2\log x}\\)
 
+
 (defn with-damping
   []
   (fixed-point (fn [x]
@@ -88,6 +86,7 @@
                    (/ (+ (* x logx) (Math/log 1000))
                       (* 2 logx))))
                10))
+
 
 ;;; with damping takes 9 steps to converge
 

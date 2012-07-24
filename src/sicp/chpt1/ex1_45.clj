@@ -1,28 +1,11 @@
-(ns sicp.chpt1.ex1-45)
-
-
-(defn abs
-  [x]
-  (if (< x 0)
-    (- x)
-    x))
+(ns sicp.chpt1.ex1-45
+  (:use [sicp.chpt1.ex1-07 :only [abs]]
+        [sicp.chpt1.ex1-16 :only [fast-expt]]
+        [sicp.chpt1.ex1-35 :only [fixed-point]]
+        [sicp.chpt1.ex1-43 :only [repeated]]))
 
 
 (def tolerance 1/100000)
-
-
-(defn fixed-point
-  [f first-guess]
-  (letfn [(close-enough? [v1 v2]
-            (< (abs (- v1 v2)) tolerance))
-
-          (try-it [guess]
-            (let [next (f guess)]
-              (if (close-enough? guess next)
-                next
-                (recur next))))]
-
-    (try-it first-guess)))
 
 
 (defn fixed-point-limit
@@ -55,39 +38,10 @@
     (/ (+ (f x) x) 2)))
 
 
-(defn repeated
-  [f n]
-  (loop [g f i n]
-    (cond (= 1 i)
-          g
-
-          (even? i)
-          (recur (comp g g) (/ i 2))
-
-          :else
-          (recur (comp f g) (dec i)))))
-
-
-(defn fast-expt
-  ([b n]
-     (fast-expt b n 1))
-  ([b n a]
-     (cond (zero? n)
-           a
-
-           (even? n)
-           (recur (* b b) (/ n 2) a)
-
-           :else
-           (recur b (dec n) (* a b)))))
-
-
 (defn nth-root-fixed-point
   [y n]
   (fn [x]
     (/ y (fast-expt x (dec n)))))
-
-
 
 
 ;;     (fixed-point-of-transform-limit
@@ -130,6 +84,7 @@
 ;; Steps Reached [37]
 
 ;; In conculusion, average damping of at least \\(\log _2 n\\) is needed to converge the fixed point for the nth root
+
 
 (defn nth-root
   [x n]

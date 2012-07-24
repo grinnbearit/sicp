@@ -1,4 +1,5 @@
-(ns sicp.chpt1.ex1-07)
+(ns sicp.chpt1.ex1-07
+  (:use [sicp.chpt1.ex1-03 :only [sqr]]))
 
 
 ;;; `good-enough?` is set to restrict the number of steps in evaluating an answer
@@ -10,11 +11,6 @@
 
 ;;; The suggested implementation of `good-enough?` is much better at limiting to an equal precision
 ;;; for both very large and very small numbers
-
-
-(defn sqr
-  [x]
-  (* x x))
 
 
 (defn abs

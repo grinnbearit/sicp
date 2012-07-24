@@ -1,14 +1,5 @@
-(ns sicp.chpt1.ex1-39)
-
-
-(defn cont-frac
-  ([n d k]
-     (cont-frac n d k 0))
-  ([n d k acc]
-     (if (zero? k)
-       acc
-       (recur n d (dec k) (/ (n k)
-                             (+ (d k) acc))))))
+(ns sicp.chpt1.ex1-39
+  (:use [sicp.chpt1.ex1-37 :only [cont-frac]]))
 
 
 (defn tan-cf

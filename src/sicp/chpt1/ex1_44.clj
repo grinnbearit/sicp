@@ -1,4 +1,5 @@
-(ns sicp.chpt1.ex1-44)
+(ns sicp.chpt1.ex1-44
+  (:use [sicp.chpt1.ex1-43 :only [repeated]]))
 
 
 (def dx 1/100000)
@@ -11,19 +12,6 @@
           (f x)
           (f (+ x dx)))
        3)))
-
-
-(defn repeated
-  [f n]
-  (loop [g f i n]
-    (cond (= 1 i)
-          g
-
-          (even? i)
-          (recur (comp g g) (/ i 2))
-
-          :else
-          (recur (comp f g) (dec i)))))
 
 
 (defn n-fold-smooth

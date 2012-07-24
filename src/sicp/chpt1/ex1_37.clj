@@ -1,6 +1,9 @@
 (ns sicp.chpt1.ex1-37)
 
 
+;;; __Recursive__
+
+
 (defn cont-frac
   ([n d k]
      (cont-frac n d k 1))
@@ -28,11 +31,12 @@
 ;;; when k is 11, we get 4 digits after the decimal point of accuracy
 
 
-;;; an iterative version of `cont-frac` follows
+;;; __Iterative__
 
-(defn cont-frac-iter
+
+(defn cont-frac
   ([n d k]
-     (cont-frac-iter n d k 0))
+     (cont-frac n d k 0))
   ([n d k acc]
      (if (zero? k)
        acc

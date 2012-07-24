@@ -1,23 +1,6 @@
-(ns sicp.chpt1.ex1-22)
-
-
-(defn divides?
-  [a b]
-  (zero? (rem a b)))
-
-
-(defn find-smallest-divisor
-  ([n]
-     (find-smallest-divisor n 2))
-  ([n test-divisor]
-     (cond (> (* test-divisor test-divisor) n)
-           n
-
-           (divides? n test-divisor)
-           test-divisor
-
-           :else
-           (recur n (inc test-divisor)))))
+(ns sicp.chpt1.ex1-22
+  (:use [sicp.chpt1.ex1-21 :only [divides?
+                                  find-smallest-divisor]]))
 
 
 (defn prime?
@@ -26,16 +9,17 @@
 
 
 (defn timed-prime-test
-  [n]
+  [n & {:keys [prime-fn] :or {prime-fn prime?}}]
   (let [start (. System (nanoTime))
-        is-prime (prime? n)]
+        is-prime (prime-fn n)]
     [is-prime (/ (double (- (. System (nanoTime)) start)) 1000000.0)]))
 
 
 (defn find-timed-primes-between
-  [a b]
+  [a b & {:keys [timed-prime-test-fn]
+          :or {timed-prime-test-fn timed-prime-test}}]
   (letfn [(mapper [n]
-            (let [[is-prime time-taken] (timed-prime-test n)]
+            (let [[is-prime time-taken] (timed-prime-test-fn n)]
               [is-prime n time-taken]))]
 
     (for [[is-prime n time-taken]

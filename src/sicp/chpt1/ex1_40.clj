@@ -1,29 +1,5 @@
-(ns sicp.chpt1.ex1-40)
-
-
-(defn abs
-  [x]
-  (if (< x 0)
-    (- x)
-    x))
-
-
-(def tolerance 1/100000)
-
-
-(defn fixed-point
-  [f first-guess]
-  (letfn [(close-enough? [v1 v2]
-            (< (abs (- v1 v2)) tolerance))
-
-          (try-it [guess i]
-            (let [next (f guess)]
-              (if (close-enough? guess next)
-                next
-                (recur next (inc i)))))]
-
-    (try-it first-guess 0)))
-
+(ns sicp.chpt1.ex1-40
+  (:use [sicp.chpt1.ex1-35 :only [fixed-point]]))
 
 
 (def dx 1/100000)
@@ -60,5 +36,5 @@
 ;;;     ((cubic 1 2 3) 1)
 ;;;     => 7
 
-;;;     (newton-method (cubic 1 1 1) 1)
+;;;     (float (newton-method (cubic 1 1 1) 1))
 ;;;     => -1.0

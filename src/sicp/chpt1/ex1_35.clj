@@ -1,4 +1,5 @@
-(ns sicp.chpt1.ex1-35)
+(ns sicp.chpt1.ex1-35
+  (:use [sicp.chpt1.ex1-07 :only [abs]]))
 
 
 ;; \\(x \rightarrow 1 + \frac{1}{x}\\)
@@ -12,13 +13,6 @@
 ;; \\(\Rightarrow x^2 = x + 1\\)
 
 ;; which is also the definition for the golden ratio, \\(\phi\\)
-
-
-(defn abs
-  [x]
-  (if (< x 0)
-    (- x)
-    x))
 
 
 (def tolerance 1/100000)

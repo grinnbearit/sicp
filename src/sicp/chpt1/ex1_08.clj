@@ -1,17 +1,9 @@
-(ns sicp.chpt1.ex1-08)
+(ns sicp.chpt1.ex1-08
+  (:use [sicp.chpt1.ex1-03 :only [sqr]]
+        [sicp.chpt1.ex1-07 :only [abs]]))
 
 
 ;;; Almost exactly like the sqrt implementation, the major change being in the implementation of `improve`
-
-
-(defn sqr
-  [x]
-  (* x x))
-
-
-(defn abs
-  [x]
-  (if (> x 0) x (- x)))
 
 
 (defn good-enough?

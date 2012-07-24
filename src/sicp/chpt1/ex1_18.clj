@@ -1,11 +1,6 @@
 (ns sicp.chpt1.ex1-18
-  (:refer-clojure :exclude [double]))
-
-
-;;; For readability, double and halve
-
-(def double #(bit-shift-left % 1))
-(def halve #(bit-shift-right % 1))
+  (:refer-clojure :exclude [double])
+  (:use [sicp.chpt1.ex1-17 :only [double halve]]))
 
 
 ;;; Iterative version of `fast-*`

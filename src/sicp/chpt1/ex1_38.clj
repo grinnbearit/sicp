@@ -1,17 +1,8 @@
-(ns sicp.chpt1.ex1-38)
+(ns sicp.chpt1.ex1-38
+  (:use [sicp.chpt1.ex1-37 :only [cont-frac]]))
 
 
 ;;; \\(e \approx 2.71828183\\)
-
-
-(defn cont-frac
-  ([n d k]
-     (cont-frac n d k 0))
-  ([n d k acc]
-     (if (zero? k)
-       acc
-       (recur n d (dec k) (/ (n k)
-                             (+ (d k) acc))))))
 
 
 (defn e

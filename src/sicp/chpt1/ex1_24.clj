@@ -1,9 +1,6 @@
-(ns sicp.chpt1.ex1-24)
-
-
-(defn square
-  [x]
-  (* x x))
+(ns sicp.chpt1.ex1-24
+  (:use [sicp.chpt1.ex1-03 :only [sqr]])
+  (:require [sicp.chpt1.ex1-22 :as c1e22]))
 
 
 (defn expmod
@@ -12,7 +9,7 @@
         1
 
         (even? exp)
-        (rem (square (expmod base (/ exp 2) m)) m)
+        (rem (sqr (expmod base (/ exp 2) m)) m)
 
         :else
         (rem (* base (expmod base (dec exp) m)) m)))
@@ -34,25 +31,12 @@
        (and (fermat-test n) (prime? n (dec times))))))
 
 
-(defn timed-prime-test
-  [n]
-  (let [start (. System (nanoTime))
-        is-prime (prime? n)]
-    [is-prime (/ (double (- (. System (nanoTime)) start)) 1000000.0)]))
+(def timed-prime-test
+  #(c1e22/timed-prime-test % :prime-fn prime?))
 
 
-(defn find-timed-primes-between
-  [a b]
-  (letfn [(mapper [n]
-            (let [[is-prime time-taken] (timed-prime-test n)]
-              [is-prime n time-taken]))]
-
-    (for [[is-prime n time-taken]
-          (map mapper (range (if (odd? a) a (inc a))
-                             b
-                             2))
-          :when is-prime]
-      [n time-taken])))
+(def find-timed-primes-between
+  #(c1e22/find-timed-primes-between %1 %2 :timed-prime-test-fn timed-prime-test))
 
 
 ;; Each test was run 100,000 times before the time was recorded to account for HotSpot optimization

@@ -1,4 +1,6 @@
-(ns sicp.chpt1.ex1-33)
+(ns sicp.chpt1.ex1-33
+  (:use [sicp.chpt1.ex1-20 :only [gcd]]
+        [sicp.chpt1.ex1-22 :only [prime?]]))
 
 
 (defn filtered-accumulate
@@ -14,9 +16,6 @@
                   (recur (next a) result)))]
 
     (iter a null-value)))
-
-
-(declare prime? gcd)
 
 
 (defn sum-squares-of-primes
@@ -41,37 +40,3 @@
 
 ;;     (prod-coprime 10)
 ;;     => 189
-
-
-
-;; scaffolding below this point
-
-
-(defn prime?
-  [n]
-  (letfn [(divides? [a b]
-            (zero? (rem a b)))
-
-          (find-smallest-divisor
-            ([n]
-               (if (divides? n 2)
-                 2
-                 (find-smallest-divisor n 3)))
-            ([n test-divisor]
-               (cond (> (* test-divisor test-divisor) n)
-                     n
-
-                     (divides? n test-divisor)
-                     test-divisor
-
-                     :else
-                     (recur n (inc (inc test-divisor))))))]
-
-    (= n (find-smallest-divisor n))))
-
-
-(defn gcd
-  [a b]
-  (if (zero? a)
-    b
-    (recur (rem b a) a)))

@@ -1,29 +1,10 @@
-(ns sicp.chpt1.ex1-28)
+(ns sicp.chpt1.ex1-28
+  (:use [sicp.chpt1.ex1-03 :only [sqr]]
+        [sicp.chpt1.ex1-21 :only [divides?]]
+        [sicp.chpt1.ex1-24 :only [expmod]]))
 
 
 ;; With lots of help from [Miller Rabin primality test](http://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test)
-
-
-(defn square
-  [x]
-  (* x x))
-
-
-(defn expmod
-  [base exp m]
-  (cond (zero? exp)
-        1
-
-        (even? exp)
-        (rem (square (expmod base (/ exp 2) m)) m)
-
-        :else
-        (rem (* base (expmod base (dec exp) m)) m)))
-
-
-(defn divides?
-  [a b]
-  (zero? (rem a b)))
 
 
 (defn factor-2s
@@ -35,9 +16,9 @@
       [t d])))
 
 
-(defn squaremod
+(defn sqrmod
   [x m]
-  (rem (square x) m))
+  (rem (sqr x) m))
 
 
 (defn miller-rabin-test
@@ -46,7 +27,7 @@
         x (expmod a d n)]
     (if (or (= 1 x) (= (dec n) x))
       true
-      (let [sqrs (take s (iterate #(squaremod % n) x))]
+      (let [sqrs (take s (iterate #(sqrmod % n) x))]
         (cond (some #(= 1 %) sqrs)
               false
 
@@ -87,22 +68,22 @@
 ;; Carmichael numbers
 
 ;;     (miller-rabin-prime? 561)
-;;     => true
+;;     => false
 
 ;;     (miller-rabin-prime? 1105)
-;;     => true
+;;     => false
 
 ;;     (miller-rabin-prime? 1729)
-;;     => true
+;;     => false
 
 ;;     (miller-rabin-prime? 2465)
-;;     => true
+;;     => false
 
 ;;     (miller-rabin-prime? 2821)
-;;     => true
+;;     => false
 
 ;;     (miller-rabin-prime? 6601)
-;;     => true
+;;     => false
 
 
 ;; None of the Carmichael numbers in the footnote fool the miller-rabin-prime test

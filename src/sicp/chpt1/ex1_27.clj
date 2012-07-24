@@ -1,21 +1,6 @@
-(ns sicp.chpt1.ex1-27)
-
-
-(defn square
-  [x]
-  (* x x))
-
-
-(defn expmod
-  [base exp m]
-  (cond (zero? exp)
-        1
-
-        (even? exp)
-        (rem (square (expmod base (/ exp 2) m)) m)
-
-        :else
-        (rem (* base (expmod base (dec exp) m)) m)))
+(ns sicp.chpt1.ex1-27
+  (:use [sicp.chpt1.ex1-22 :only [prime?]]
+        [sicp.chpt1.ex1-24 :only [expmod]]))
 
 
 (defn fermat-test
@@ -28,32 +13,6 @@
   (->> (range 2 n)
        (map (partial fermat-test n))
        (every? true?)))
-
-
-(defn divides?
-  [a b]
-  (zero? (rem a b)))
-
-
-(defn find-smallest-divisor
-  ([n]
-     (if (divides? n 2)
-       2
-       (find-smallest-divisor n 3)))
-  ([n test-divisor]
-     (cond (> (* test-divisor test-divisor) n)
-           n
-
-           (divides? n test-divisor)
-           test-divisor
-
-           :else
-           (recur n (inc (inc test-divisor))))))
-
-
-(defn prime?
-  [n]
-  (= n (find-smallest-divisor n)))
 
 
 ;; known primes and non primes
