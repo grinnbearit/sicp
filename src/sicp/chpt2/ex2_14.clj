@@ -1,88 +1,10 @@
-(ns sicp.chpt2.ex2-14)
-
-
-(defrecord Interval [lb ub])
-
-
-(defn abs
-  [x]
-  (if (pos? x) x (- x)))
-
-
-(defn make-interval
-  [lb ub]
-  (Interval. lb ub))
-
-
-(defn lower-bound
-  [i]
-  (.lb i))
-
-
-(defn upper-bound
-  [i]
-  (.ub i))
-
-
-(defn make-center-percent
-  [c p]
-  (let [width (abs (* (/ p 100) c))]
-    (make-interval (- c width)
-                   (+ c width))))
-
-
-(defn center
-  [i]
-  (/ (+ (lower-bound i)
-        (upper-bound i))
-     2))
-
-
-(defn percent
-  [i]
-  (let [c (center i)]
-    (abs (* (/ (- (upper-bound i) c)
-               c)
-            100))))
-
-
-(defn print-interval
-  [i]
-  (format "(%1.2f, %1.2f%%)"
-          (double (center i))
-          (double (percent i))))
-
-
-(defn add-interval
-  [x y]
-  (make-interval (+ (lower-bound x)
-                    (lower-bound y))
-                 (+ (upper-bound x)
-                    (upper-bound y))))
-
-
-(defn mul-interval
-  [x y]
-  (let [p1 (* (lower-bound x) (lower-bound y))
-        p2 (* (lower-bound x) (upper-bound y))
-        p3 (* (upper-bound x) (lower-bound y))
-        p4 (* (upper-bound x) (upper-bound y))]
-    (make-interval (min p1 p2 p3 p4)
-                   (max p1 p2 p3 p4))))
-
-
-(defn div-interval
-  [x y]
-  (letfn [(spans-zero?
-            [i]
-            (and (<= (lower-bound i) 0)
-                 (<= 0 (upper-bound i))))]
-
-    (if (spans-zero? y)
-      (throw (ArithmeticException. "Divide by zero"))
-      (mul-interval x
-                    (make-interval (/ (lower-bound y))
-                                   (/ (upper-bound y)))))))
+(ns sicp.chpt2.ex2-14
+  (:use [sicp.chpt2.ex2-07 :only [make-interval]]
+        [sicp.chpt2.ex2-08 :only [add-interval]]
+        [sicp.chpt2.ex2-09 :only [mul-interval]]
+        [sicp.chpt2.ex2-10 :only [div-interval]]
+        [sicp.chpt2.ex2-12 :only [make-center-percent
+                                  print-interval]]))
 
 
 (defn par1

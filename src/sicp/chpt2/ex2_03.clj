@@ -1,40 +1,10 @@
-(ns sicp.chpt2.ex2-03)
-
-
-(defrecord Point [x y])
-
-
-(defn make-point
-  [x y]
-  (Point. x y))
-
-
-(defn x-point
-  [p]
-  (.x p))
-
-
-(defn y-point
-  [p]
-  (.y p))
-
-
-(defrecord Segment [p1 p2])
-
-
-(defn make-segment
-  [p1 p2]
-  (Segment. p1 p2))
-
-
-(defn start-segment
-  [s]
-  (.p1 s))
-
-
-(defn end-segment
-  [s]
-  (.p2 s))
+(ns sicp.chpt2.ex2-03
+  (:use [sicp.chpt2.ex2-02 :only [make-point
+                                  x-point
+                                  y-point
+                                  make-segment
+                                  start-segment
+                                  end-segment]]))
 
 
 ;;; For the sake of simplicity, assume the sides of the rectangle are always perpendicular to the coordinate axes

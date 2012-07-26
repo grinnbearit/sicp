@@ -1,17 +1,11 @@
-(ns sicp.chpt2.ex2-01)
+(ns sicp.chpt2.ex2-01
+  (:use [sicp.chpt1.ex1-20 :only [gcd]]))
 
 
 ;;; Using Clojure's records instead of cons cells as a means of combination
 
 
 (defrecord Rational [n d])
-
-
-(defn- gcd
-  [x y]
-  (if (zero? y)
-    x
-    (recur y (rem x y))))
 
 
 (defn make-rat

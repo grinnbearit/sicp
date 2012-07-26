@@ -1,12 +1,5 @@
-(ns sicp.chpt2.ex2-36)
-
-
-(defn accumulate
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (accumulate op initial (rest sequence)))))
+(ns sicp.chpt2.ex2-36
+  (:use [sicp.chpt2.ex2-33 :only [accumulate]]))
 
 
 (defn accumulate-n

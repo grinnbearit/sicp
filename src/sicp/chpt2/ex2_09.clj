@@ -1,41 +1,9 @@
-(ns sicp.chpt2.ex2-09)
-
-
-(defrecord Interval [lb ub])
-
-
-(defn make-interval
-  [lb ub]
-  (Interval. lb ub))
-
-
-(defn lower-bound
-  [i]
-  (.lb i))
-
-
-(defn upper-bound
-  [i]
-  (.ub i))
-
-
-(defn add-interval
-  [x y]
-  (make-interval (+ (lower-bound x)
-                    (lower-bound y))
-                 (+ (upper-bound x)
-                    (upper-bound y))))
-
-
-(defn sub-interval
-  [x y]
-  (let [a (- (lower-bound x)
-             (lower-bound y))
-        b (- (upper-bound x)
-             (upper-bound y))]
-    (if (< a b)
-      (make-interval a b)
-      (make-interval b a))))
+(ns sicp.chpt2.ex2-09
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]
+        [sicp.chpt2.ex2-08 :only [add-interval
+                                  sub-interval]]))
 
 
 (defn mul-interval

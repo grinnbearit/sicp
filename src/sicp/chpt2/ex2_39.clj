@@ -1,21 +1,6 @@
 (ns sicp.chpt2.ex2-39
-  (:refer-clojure :exclude [reverse]))
-
-
-(defn fold-left
-  [op initial sequence]
-  (loop [acc initial s sequence]
-    (if (empty? s)
-      acc
-      (recur (op acc (first s)) (rest s)))))
-
-
-(defn fold-right
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (fold-right op initial (rest sequence)))))
+  (:refer-clojure :exclude [reverse])
+  (:use [sicp.chpt2.ex2-38 :only [fold-left fold-right]]))
 
 
 ;;; __with `fold-left`__

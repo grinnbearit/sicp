@@ -1,20 +1,6 @@
-(ns sicp.chpt2.ex2-37)
-
-
-(defn accumulate
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (accumulate op initial (rest sequence)))))
-
-
-(defn accumulate-n
-  [op init seqs]
-  (if (empty? (first seqs))
-    ()
-    (cons (accumulate op init (map first seqs))
-          (accumulate-n op init (map rest seqs)))))
+(ns sicp.chpt2.ex2-37
+  (:use [sicp.chpt2.ex2-33 :only [accumulate]])
+  (:use [sicp.chpt2.ex2-36 :only [accumulate-n]]))
 
 
 ;;; __dot-product__

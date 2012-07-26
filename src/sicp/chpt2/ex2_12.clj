@@ -1,22 +1,7 @@
-(ns sicp.chpt2.ex2-12)
-
-
-(defrecord Interval [lb ub])
-
-
-(defn make-interval
-  [lb ub]
-  (Interval. lb ub))
-
-
-(defn lower-bound
-  [i]
-  (.lb i))
-
-
-(defn upper-bound
-  [i]
-  (.ub i))
+(ns sicp.chpt2.ex2-12
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]))
 
 
 (defn make-center-percent
@@ -39,6 +24,13 @@
     (Math/abs (* (/ (- (upper-bound i) c)
                     c)
                  100.0))))
+
+
+(defn print-interval
+  [i]
+  (format "(%1.2f, %1.2f%%)"
+          (double (center i))
+          (double (percent i))))
 
 
 ;;     (center (make-center-percent 100 10))

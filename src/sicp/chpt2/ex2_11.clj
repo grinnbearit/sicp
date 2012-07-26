@@ -1,22 +1,7 @@
-(ns sicp.chpt2.ex2-11)
-
-
-(defrecord Interval [lb ub])
-
-
-(defn make-interval
-  [lb ub]
-  (Interval. lb ub))
-
-
-(defn lower-bound
-  [i]
-  (.lb i))
-
-
-(defn upper-bound
-  [i]
-  (.ub i))
+(ns sicp.chpt2.ex2-11
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]))
 
 
 (defn mul-interval
