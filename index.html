@@ -3123,16 +3123,14 @@ is evaluated whether <code>(good-enough? guess x)</code> was true or not,
 this would result in an infinite call to <code>sqrt-iter</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>This is only in the case of applicative order evaluation</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-07" name="sicp.chpt1.ex1-07"><h1 class="project-name">sicp.chpt1.ex1-07</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-07)</pre></td></tr><tr><td class="docs"><p><code>good-enough?</code> is set to restrict the number of steps in evaluating an answer</p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-07
+  (:use [sicp.chpt1.ex1-03 :only [sqr]]))</pre></td></tr><tr><td class="docs"><p><code>good-enough?</code> is set to restrict the number of steps in evaluating an answer</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Using a delta (even a small one) to check <code>good-enough?</code> works ok for numbers in
 a small range but very large numbers take a long time to converge (with much higher precision)
 while very small numbers take a small time to converge (with loss of precision).</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>The suggested implementation of <code>good-enough?</code> is much better at limiting to an equal precision
 for both very large and very small numbers</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn sqr
-  [x]
-  (* x x))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn abs
   [x]
   (if (&gt; x 0) x (- x)))</pre></td></tr><tr><td class="docs">
@@ -3166,14 +3164,10 @@ for both very large and very small numbers</p>
 </td><td class="codes"><pre class="brush: clojure">(defn sqrt2
   [x]
   (sqrt-iter2 1.0 x))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-08" name="sicp.chpt1.ex1-08"><h1 class="project-name">sicp.chpt1.ex1-08</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-08)</pre></td></tr><tr><td class="docs"><p>Almost exactly like the sqrt implementation, the major change being in the implementation of <code>improve</code></p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-08
+  (:use [sicp.chpt1.ex1-03 :only [sqr]]
+        [sicp.chpt1.ex1-07 :only [abs]]))</pre></td></tr><tr><td class="docs"><p>Almost exactly like the sqrt implementation, the major change being in the implementation of <code>improve</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn sqr
-  [x]
-  (* x x))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn abs
-  [x]
-  (if (&gt; x 0) x (- x)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn good-enough?
   [last-guess guess]
   (&lt; (/ (abs (- guess last-guess))
@@ -3520,10 +3514,8 @@ number of times <code>p</code> is applied</p>
         :else
         (+ a (fast-* a (dec b)))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-18" name="sicp.chpt1.ex1-18"><h1 class="project-name">sicp.chpt1.ex1-18</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-18
-  (:refer-clojure :exclude [double]))</pre></td></tr><tr><td class="docs"><p>For readability, double and halve</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(def double #(bit-shift-left % 1))
-(def halve #(bit-shift-right % 1))</pre></td></tr><tr><td class="docs"><p>Iterative version of <code>fast-*</code></p>
+  (:refer-clojure :exclude [double])
+  (:use [sicp.chpt1.ex1-17 :only [double halve]]))</pre></td></tr><tr><td class="docs"><p>Iterative version of <code>fast-*</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Keeping \(ba+n\) constant in every iteration</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn fast-*
@@ -3580,43 +3572,58 @@ number of times <code>p</code> is applied</p>
                   p
                   q
                   (dec n)))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-20" name="sicp.chpt1.ex1-20"><h1 class="project-name">sicp.chpt1.ex1-20</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-20)</pre></td></tr><tr><td class="docs"><p><strong>Normal Order</strong></p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>Evaluating <code>gcd</code> with normal order</p>
-</td><td class="codes"><pre class="brush: clojure">(gcd 206
-     40)</pre></td></tr><tr><td class="docs"><p>each call to <code>(= b 0)</code> evaluates <code>b</code></p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-20)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn gcd
+  [a b]
+  (if (zero? a)
+    b
+    (recur (rem b a) a)))</pre></td></tr><tr><td class="docs"><p><strong>Normal Order</strong></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Evaluating <code>gcd</code> with normal order
+     (gcd 206
+          40)</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>each call to <code>(= b 0)</code> evaluates <code>b</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>initial number of calls to rem is 0</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd 40
-     (rem 206 40))</pre></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd (rem 206 40)
-     (rem 40 (rem 206 40)))</pre></td></tr><tr><td class="docs"><p>+2 calls to <code>rem</code></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd (rem 40 (rem 206 40))
-     (rem (rem 206 40) (rem 40 (rem 206 40))))</pre></td></tr><tr><td class="docs"><p>+4 calls to <code>rem</code></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd (rem (rem 206 40) (rem 40 (rem 206 40)))
-     (rem (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40)))))</pre></td></tr><tr><td class="docs"><p>+7 calls to <code>rem</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd 40
+      (rem 206 40))
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd (rem 206 40)
+      (rem 40 (rem 206 40)))
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>+2 calls to <code>rem</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd (rem 40 (rem 206 40))
+      (rem (rem 206 40) (rem 40 (rem 206 40))))
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>+4 calls to <code>rem</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd (rem (rem 206 40) (rem 40 (rem 206 40)))
+      (rem (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40)))))
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>+7 calls to <code>rem</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Finally +4 calls to <code>rem</code> when returning <code>a</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Total number of calls to <code>rem</code> with normal order</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(0 + 1 + 2 + 4 + 7 + 4 \rightarrow 18\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p><strong>Applicative Order</strong></p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>Evaluating <code>gcd</code> with applicative order</p>
-</td><td class="codes"><pre class="brush: clojure">(gcd 206
-     40)</pre></td></tr><tr><td class="docs"><p>Each call to <code>gcd</code> evaluates both arguments immediately</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Evaluating <code>gcd</code> with applicative order
+     (gcd 206
+          40)</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Each call to <code>gcd</code> evaluates both arguments immediately</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>initial number of calls to rem is 0</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd 40
-     6)</pre></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd 6
-     4)</pre></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd 4
-     2)</pre></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(gcd 2
-     0)</pre></td></tr><tr><td class="docs"><p>Finally <code>a</code> is already evaluated so no additional calls to <code>rem</code> required</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd 40
+      6)
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd 6
+      4)
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd 4
+      2)
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>+1 call to <code>rem</code></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code> (gcd 2
+      0)
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Finally <code>a</code> is already evaluated so no additional calls to <code>rem</code> required</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Total number of calls to <code>rem</code> with applicative order</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(0 + 1 + 1 + 1 + 1 \rightarrow 4\)</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-21" name="sicp.chpt1.ex1-21"><h1 class="project-name">sicp.chpt1.ex1-21</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
@@ -3643,32 +3650,22 @@ number of times <code>p</code> is applied</p>
 =&gt; 7
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-22" name="sicp.chpt1.ex1-22"><h1 class="project-name">sicp.chpt1.ex1-22</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-22)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn divides?
-  [a b]
-  (zero? (rem a b)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn find-smallest-divisor
-  ([n]
-     (find-smallest-divisor n 2))
-  ([n test-divisor]
-     (cond (&gt; (* test-divisor test-divisor) n)
-           n
-           (divides? n test-divisor)
-           test-divisor
-           :else
-           (recur n (inc test-divisor)))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-22
+  (:use [sicp.chpt1.ex1-21 :only [divides?
+                                  find-smallest-divisor]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn prime?
   [n]
   (= n (find-smallest-divisor n)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn timed-prime-test
-  [n]
+  [n &amp; {:keys [prime-fn] :or {prime-fn prime?}}]
   (let [start (. System (nanoTime))
-        is-prime (prime? n)]
+        is-prime (prime-fn n)]
     [is-prime (/ (double (- (. System (nanoTime)) start)) 1000000.0)]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn find-timed-primes-between
-  [a b]
+  [a b &amp; {:keys [timed-prime-test-fn]
+          :or {timed-prime-test-fn timed-prime-test}}]
   (letfn [(mapper [n]
-            (let [[is-prime time-taken] (timed-prime-test n)]
+            (let [[is-prime time-taken] (timed-prime-test-fn n)]
               [is-prime n time-taken]))]
     (for [[is-prime n time-taken]
           (map mapper (range (if (odd? a) a (inc a))
@@ -3718,10 +3715,9 @@ number of times <code>p</code> is applied</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Which is roughly equal to \(\sqrt{10}\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>This supports the \(\sqrt{n}\) prediction and shows that runtime is proportional to number of steps</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-23" name="sicp.chpt1.ex1-23"><h1 class="project-name">sicp.chpt1.ex1-23</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-23)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn divides?
-  [a b]
-  (zero? (rem a b)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-23
+  (:use [sicp.chpt1.ex1-21 :only [divides?]])
+  (:require [sicp.chpt1.ex1-22 :as c1e22]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn find-smallest-divisor
   ([n]
      (if (divides? n 2)
@@ -3737,22 +3733,10 @@ number of times <code>p</code> is applied</p>
 </td><td class="codes"><pre class="brush: clojure">(defn prime?
   [n]
   (= n (find-smallest-divisor n)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn timed-prime-test
-  [n]
-  (let [start (. System (nanoTime))
-        is-prime (prime? n)]
-    [is-prime (/ (double (- (. System (nanoTime)) start)) 1000000.0)]))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn find-timed-primes-between
-  [a b]
-  (letfn [(mapper [n]
-            (let [[is-prime time-taken] (timed-prime-test n)]
-              [is-prime n time-taken]))]
-    (for [[is-prime n time-taken]
-          (map mapper (range (if (odd? a) a (inc a))
-                             b
-                             2))
-          :when is-prime]
-      [n time-taken])))</pre></td></tr><tr><td class="docs"><p>Each test was run 100,000 times before the time was recorded to account for HotSpot optimization</p>
+</td><td class="codes"><pre class="brush: clojure">(def timed-prime-test
+  #(c1e22/timed-prime-test % :prime-fn prime?))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def find-timed-primes-between
+  #(c1e22/find-timed-primes-between %1 %2 :timed-prime-test-fn timed-prime-test))</pre></td></tr><tr><td class="docs"><p>Each test was run 100,000 times before the time was recorded to account for HotSpot optimization</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p><code>(take 3 (find-timed-primes-between 1000 1000000000))</code></p>
 
 <ul>
@@ -3808,16 +3792,15 @@ compared to <code>+</code>. Even though the number of steps is halved, this diff
 </td><td class="codes"></td></tr><tr><td class="docs"><p>This is only for smaller numbers though, as the input gets larger and larger, the halving of the number of steps will dominate. Asymptotically,
 this algorithm should complete in half the time as the previous one</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-24" name="sicp.chpt1.ex1-24"><h1 class="project-name">sicp.chpt1.ex1-24</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-24)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn square
-  [x]
-  (* x x))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-24
+  (:use [sicp.chpt1.ex1-03 :only [sqr]])
+  (:require [sicp.chpt1.ex1-22 :as c1e22]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn expmod
   [base exp m]
   (cond (zero? exp)
         1
         (even? exp)
-        (rem (square (expmod base (/ exp 2) m)) m)
+        (rem (sqr (expmod base (/ exp 2) m)) m)
         :else
         (rem (* base (expmod base (dec exp) m)) m)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn fermat-test
@@ -3832,22 +3815,10 @@ this algorithm should complete in half the time as the previous one</p>
      (if (zero? times)
        true
        (and (fermat-test n) (prime? n (dec times))))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn timed-prime-test
-  [n]
-  (let [start (. System (nanoTime))
-        is-prime (prime? n)]
-    [is-prime (/ (double (- (. System (nanoTime)) start)) 1000000.0)]))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn find-timed-primes-between
-  [a b]
-  (letfn [(mapper [n]
-            (let [[is-prime time-taken] (timed-prime-test n)]
-              [is-prime n time-taken]))]
-    (for [[is-prime n time-taken]
-          (map mapper (range (if (odd? a) a (inc a))
-                             b
-                             2))
-          :when is-prime]
-      [n time-taken])))</pre></td></tr><tr><td class="docs"><p>Each test was run 100,000 times before the time was recorded to account for HotSpot optimization</p>
+</td><td class="codes"><pre class="brush: clojure">(def timed-prime-test
+  #(c1e22/timed-prime-test % :prime-fn prime?))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(def find-timed-primes-between
+  #(c1e22/find-timed-primes-between %1 %2 :timed-prime-test-fn timed-prime-test))</pre></td></tr><tr><td class="docs"><p>Each test was run 100,000 times before the time was recorded to account for HotSpot optimization</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p><code>(take 3 (find-timed-primes-between 1000 1000000000))</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><ul>
 <li>1009, 0.043298 msec</li>
@@ -3891,18 +3862,9 @@ remaining steps each time we find an even <code>exp</code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>by calling <code>expmod</code> twice, Louis loses this advantage, calculating half the number of steps
 twice, thus making \(O(expmod) \rightarrow n\)</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-27" name="sicp.chpt1.ex1-27"><h1 class="project-name">sicp.chpt1.ex1-27</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-27)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn square
-  [x]
-  (* x x))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn expmod
-  [base exp m]
-  (cond (zero? exp)
-        1
-        (even? exp)
-        (rem (square (expmod base (/ exp 2) m)) m)
-        :else
-        (rem (* base (expmod base (dec exp) m)) m)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-27
+  (:use [sicp.chpt1.ex1-22 :only [prime?]]
+        [sicp.chpt1.ex1-24 :only [expmod]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn fermat-test
   [n a]
   (= (expmod a n n) a))</pre></td></tr><tr><td class="docs">
@@ -3910,25 +3872,7 @@ twice, thus making \(O(expmod) \rightarrow n\)</p>
   [n]
   (-&gt;&gt; (range 2 n)
        (map (partial fermat-test n))
-       (every? true?)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn divides?
-  [a b]
-  (zero? (rem a b)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn find-smallest-divisor
-  ([n]
-     (if (divides? n 2)
-       2
-       (find-smallest-divisor n 3)))
-  ([n test-divisor]
-     (cond (&gt; (* test-divisor test-divisor) n)
-           n
-           (divides? n test-divisor)
-           test-divisor
-           :else
-           (recur n (inc (inc test-divisor))))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn prime?
-  [n]
-  (= n (find-smallest-divisor n)))</pre></td></tr><tr><td class="docs"><p>known primes and non primes</p>
+       (every? true?)))</pre></td></tr><tr><td class="docs"><p>known primes and non primes</p>
 
 <pre><code>(fermat-prime? 1009)
 =&gt; true
@@ -3994,38 +3938,27 @@ twice, thus making \(O(expmod) \rightarrow n\)</p>
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>All the Carmichael numbers in the footnote fool the fermat-prime test</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-28" name="sicp.chpt1.ex1-28"><h1 class="project-name">sicp.chpt1.ex1-28</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-28)</pre></td></tr><tr><td class="docs"><p>With lots of help from <a href="http://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test">Miller Rabin primality test</a></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn square
-  [x]
-  (* x x))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn expmod
-  [base exp m]
-  (cond (zero? exp)
-        1
-        (even? exp)
-        (rem (square (expmod base (/ exp 2) m)) m)
-        :else
-        (rem (* base (expmod base (dec exp) m)) m)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn divides?
-  [a b]
-  (zero? (rem a b)))</pre></td></tr><tr><td class="docs"><p>Returns the tuple <code>[s d]</code> which is <code>n</code> in the form (2^s)*d</p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-28
+  (:use [sicp.chpt1.ex1-03 :only [sqr]]
+        [sicp.chpt1.ex1-21 :only [divides?]]
+        [sicp.chpt1.ex1-24 :only [expmod]]))</pre></td></tr><tr><td class="docs"><p>With lots of help from <a href="http://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test">Miller Rabin primality test</a></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Returns the tuple <code>[s d]</code> which is <code>n</code> in the form (2^s)*d</p>
 </td><td class="codes"><pre class="brush: clojure">(defn factor-2s
   [n]
   (loop [t 0 d n]
     (if (divides? d 2)
       (recur (inc t) (/ d 2))
       [t d])))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn squaremod
+</td><td class="codes"><pre class="brush: clojure">(defn sqrmod
   [x m]
-  (rem (square x) m))</pre></td></tr><tr><td class="docs">
+  (rem (sqr x) m))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn miller-rabin-test
   [n a]
   (let [[s d] (factor-2s (dec n))
         x (expmod a d n)]
     (if (or (= 1 x) (= (dec n) x))
       true
-      (let [sqrs (take s (iterate #(squaremod % n) x))]
+      (let [sqrs (take s (iterate #(sqrmod % n) x))]
         (cond (some #(= 1 %) sqrs)
               false
               (some #(= (dec n) %) sqrs)
@@ -4057,22 +3990,22 @@ twice, thus making \(O(expmod) \rightarrow n\)</p>
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Carmichael numbers</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(miller-rabin-prime? 561)
-=&gt; true
+=&gt; false
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(miller-rabin-prime? 1105)
-=&gt; true
+=&gt; false
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(miller-rabin-prime? 1729)
-=&gt; true
+=&gt; false
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(miller-rabin-prime? 2465)
-=&gt; true
+=&gt; false
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(miller-rabin-prime? 2821)
-=&gt; true
+=&gt; false
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(miller-rabin-prime? 6601)
-=&gt; true
+=&gt; false
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>None of the Carmichael numbers in the footnote fool the miller-rabin-prime test</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-29" name="sicp.chpt1.ex1-29"><h1 class="project-name">sicp.chpt1.ex1-29</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
@@ -4187,7 +4120,9 @@ it approximates a better result in the same number of iterations</p>
 </td><td class="codes"><pre class="brush: clojure">(defn product-rec
   [term a next b]
   (accumulate-rec * 1 term a next b))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-33" name="sicp.chpt1.ex1-33"><h1 class="project-name">sicp.chpt1.ex1-33</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-33)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-33
+  (:use [sicp.chpt1.ex1-20 :only [gcd]]
+        [sicp.chpt1.ex1-22 :only [prime?]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn filtered-accumulate
   [combiner null-value term a next b filter]
   (letfn [(iter [a result]
@@ -4198,7 +4133,6 @@ it approximates a better result in the same number of iterations</p>
                   :else
                   (recur (next a) result)))]
     (iter a null-value)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(declare prime? gcd)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn sum-squares-of-primes
   [a b]
   (letfn [(square [x]
@@ -4214,30 +4148,7 @@ it approximates a better result in the same number of iterations</p>
     (filtered-accumulate * 1 identity 2 inc (dec n) coprime?)))</pre></td></tr><tr><td class="docs"><pre><code>(prod-coprime 10)
 =&gt; 189
 </code></pre>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>scaffolding below this point</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn prime?
-  [n]
-  (letfn [(divides? [a b]
-            (zero? (rem a b)))
-          (find-smallest-divisor
-            ([n]
-               (if (divides? n 2)
-                 2
-                 (find-smallest-divisor n 3)))
-            ([n test-divisor]
-               (cond (&gt; (* test-divisor test-divisor) n)
-                     n
-                     (divides? n test-divisor)
-                     test-divisor
-                     :else
-                     (recur n (inc (inc test-divisor))))))]
-    (= n (find-smallest-divisor n))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn gcd
-  [a b]
-  (if (zero? a)
-    b
-    (recur (rem b a) a)))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-34" name="sicp.chpt1.ex1-34"><h1 class="project-name">sicp.chpt1.ex1-34</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-34" name="sicp.chpt1.ex1-34"><h1 class="project-name">sicp.chpt1.ex1-34</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-34)</pre></td></tr><tr><td class="docs"><p>Evaluating <code>(f f)</code>, we'd get an error since 2 is not a function</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn f
@@ -4250,18 +4161,14 @@ it approximates a better result in the same number of iterations</p>
 =&gt; java.lang.Long cannot be cast to clojure.lang.IFn
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-35" name="sicp.chpt1.ex1-35"><h1 class="project-name">sicp.chpt1.ex1-35</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-35)</pre></td></tr><tr><td class="docs"><p>\(x \rightarrow 1 + \frac{1}{x}\)</p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-35
+  (:use [sicp.chpt1.ex1-07 :only [abs]]))</pre></td></tr><tr><td class="docs"><p>\(x \rightarrow 1 + \frac{1}{x}\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>is a transformation whose fixed point is the solution to the equation</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(x = 1 + \frac{1}{x}\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(\Rightarrow x = \frac{x + 1}{x}\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(\Rightarrow x^2 = x + 1\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>which is also the definition for the golden ratio, \(\phi\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn abs
-  [x]
-  (if (&lt; x 0)
-    (- x)
-    x))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(def tolerance 1/100000)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn fixed-point
   [f first-guess]
@@ -4278,12 +4185,8 @@ it approximates a better result in the same number of iterations</p>
 =&gt; 1.6180328
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-36" name="sicp.chpt1.ex1-36"><h1 class="project-name">sicp.chpt1.ex1-36</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-36)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn abs
-  [x]
-  (if (&lt; x 0)
-    (- x)
-    x))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-36
+  (:use [sicp.chpt1.ex1-07 :only [abs]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(def tolerance 1/100000)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn fixed-point
   [f first-guess]
@@ -4365,7 +4268,8 @@ it approximates a better result in the same number of iterations</p>
 =&gt; 4.555536206185039
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-37" name="sicp.chpt1.ex1-37"><h1 class="project-name">sicp.chpt1.ex1-37</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-37)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-37)</pre></td></tr><tr><td class="docs"><p><strong>Recursive</strong></p>
+</td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn cont-frac
   ([n d k]
      (cont-frac n d k 1))
@@ -4383,17 +4287,7 @@ it approximates a better result in the same number of iterations</p>
 =&gt; 0.6180556
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>when k is 11, we get 4 digits after the decimal point of accuracy</p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>an iterative version of <code>cont-frac</code> follows</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn cont-frac-iter
-  ([n d k]
-     (cont-frac-iter n d k 0))
-  ([n d k acc]
-     (if (zero? k)
-       acc
-       (recur n d (dec k) (/ (n k)
-                             (+ (d k) acc))))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-38" name="sicp.chpt1.ex1-38"><h1 class="project-name">sicp.chpt1.ex1-38</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-38)</pre></td></tr><tr><td class="docs"><p>\(e \approx 2.71828183\)</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p><strong>Iterative</strong></p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn cont-frac
   ([n d k]
@@ -4402,7 +4296,10 @@ it approximates a better result in the same number of iterations</p>
      (if (zero? k)
        acc
        (recur n d (dec k) (/ (n k)
-                             (+ (d k) acc))))))</pre></td></tr><tr><td class="docs">
+                             (+ (d k) acc))))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-38" name="sicp.chpt1.ex1-38"><h1 class="project-name">sicp.chpt1.ex1-38</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-38
+  (:use [sicp.chpt1.ex1-37 :only [cont-frac]]))</pre></td></tr><tr><td class="docs"><p>\(e \approx 2.71828183\)</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn e
   [k]
   (float (+ (cont-frac (constantly 1)
@@ -4415,15 +4312,8 @@ it approximates a better result in the same number of iterations</p>
 =&gt; 2.71828
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-39" name="sicp.chpt1.ex1-39"><h1 class="project-name">sicp.chpt1.ex1-39</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-39)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn cont-frac
-  ([n d k]
-     (cont-frac n d k 0))
-  ([n d k acc]
-     (if (zero? k)
-       acc
-       (recur n d (dec k) (/ (n k)
-                             (+ (d k) acc))))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-39
+  (:use [sicp.chpt1.ex1-37 :only [cont-frac]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn tan-cf
   [x k]
   (letfn [(numerator [i]
@@ -4449,23 +4339,8 @@ it approximates a better result in the same number of iterations</p>
 =&gt; -1.0
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-40" name="sicp.chpt1.ex1-40"><h1 class="project-name">sicp.chpt1.ex1-40</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-40)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn abs
-  [x]
-  (if (&lt; x 0)
-    (- x)
-    x))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(def tolerance 1/100000)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn fixed-point
-  [f first-guess]
-  (letfn [(close-enough? [v1 v2]
-            (&lt; (abs (- v1 v2)) tolerance))
-          (try-it [guess i]
-            (let [next (f guess)]
-              (if (close-enough? guess next)
-                next
-                (recur next (inc i)))))]
-    (try-it first-guess 0)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-40
+  (:use [sicp.chpt1.ex1-35 :only [fixed-point]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(def dx 1/100000)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn deriv
   [g]
@@ -4488,7 +4363,7 @@ it approximates a better result in the same number of iterations</p>
        c)))</pre></td></tr><tr><td class="docs"><pre><code>((cubic 1 2 3) 1)
 =&gt; 7
 </code></pre>
-</td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(newton-method (cubic 1 1 1) 1)
+</td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(float (newton-method (cubic 1 1 1) 1))
 =&gt; -1.0
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-41" name="sicp.chpt1.ex1-41"><h1 class="project-name">sicp.chpt1.ex1-41</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
@@ -4522,7 +4397,8 @@ it approximates a better result in the same number of iterations</p>
 =&gt; 625
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-44" name="sicp.chpt1.ex1-44"><h1 class="project-name">sicp.chpt1.ex1-44</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-44)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-44
+  (:use [sicp.chpt1.ex1-43 :only [repeated]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(def dx 1/100000)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn smooth
   [f]
@@ -4531,35 +4407,15 @@ it approximates a better result in the same number of iterations</p>
           (f x)
           (f (+ x dx)))
        3)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn repeated
-  [f n]
-  (loop [g f i n]
-    (cond (= 1 i)
-          g
-          (even? i)
-          (recur (comp g g) (/ i 2))
-          :else
-          (recur (comp f g) (dec i)))))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn n-fold-smooth
   [f n]
   ((repeated smooth n) f))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt1.ex1-45" name="sicp.chpt1.ex1-45"><h1 class="project-name">sicp.chpt1.ex1-45</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-45)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn abs
-  [x]
-  (if (&lt; x 0)
-    (- x)
-    x))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt1.ex1-45
+  (:use [sicp.chpt1.ex1-07 :only [abs]]
+        [sicp.chpt1.ex1-16 :only [fast-expt]]
+        [sicp.chpt1.ex1-35 :only [fixed-point]]
+        [sicp.chpt1.ex1-43 :only [repeated]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(def tolerance 1/100000)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn fixed-point
-  [f first-guess]
-  (letfn [(close-enough? [v1 v2]
-            (&lt; (abs (- v1 v2)) tolerance))
-          (try-it [guess]
-            (let [next (f guess)]
-              (if (close-enough? guess next)
-                next
-                (recur next))))]
-    (try-it first-guess)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn fixed-point-limit
   [f first-guess limit]
   (letfn [(close-enough? [v1 v2]
@@ -4580,25 +4436,6 @@ it approximates a better result in the same number of iterations</p>
   [f]
   (fn [x]
     (/ (+ (f x) x) 2)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn repeated
-  [f n]
-  (loop [g f i n]
-    (cond (= 1 i)
-          g
-          (even? i)
-          (recur (comp g g) (/ i 2))
-          :else
-          (recur (comp f g) (dec i)))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn fast-expt
-  ([b n]
-     (fast-expt b n 1))
-  ([b n a]
-     (cond (zero? n)
-           a
-           (even? n)
-           (recur (* b b) (/ n 2) a)
-           :else
-           (recur b (dec n) (* a b)))))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn nth-root-fixed-point
   [y n]
   (fn [x]
@@ -4675,14 +4512,10 @@ it approximates a better result in the same number of iterations</p>
 =&gt; 1.6179775280898876
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-01" name="sicp.chpt2.ex2-01"><h1 class="project-name">sicp.chpt2.ex2-01</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-01)</pre></td></tr><tr><td class="docs"><p>Using Clojure's records instead of cons cells as a means of combination</p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-01
+  (:use [sicp.chpt1.ex1-20 :only [gcd]]))</pre></td></tr><tr><td class="docs"><p>Using Clojure's records instead of cons cells as a means of combination</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defrecord Rational [n d])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn- gcd
-  [x y]
-  (if (zero? y)
-    x
-    (recur y (rem x y))))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn make-rat
   [n d]
   (let [div (Math/abs (gcd n d))
@@ -4729,27 +4562,13 @@ it approximates a better result in the same number of iterations</p>
 =&gt; #sicp.chpt2.ex2_02.Point{:x 1, :y 1}
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-03" name="sicp.chpt2.ex2-03"><h1 class="project-name">sicp.chpt2.ex2-03</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-03)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Point [x y])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-point
-  [x y]
-  (Point. x y))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn x-point
-  [p]
-  (.x p))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn y-point
-  [p]
-  (.y p))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Segment [p1 p2])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-segment
-  [p1 p2]
-  (Segment. p1 p2))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn start-segment
-  [s]
-  (.p1 s))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn end-segment
-  [s]
-  (.p2 s))</pre></td></tr><tr><td class="docs"><p>For the sake of simplicity, assume the sides of the rectangle are always perpendicular to the coordinate axes</p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-03
+  (:use [sicp.chpt2.ex2-02 :only [make-point
+                                  x-point
+                                  y-point
+                                  make-segment
+                                  start-segment
+                                  end-segment]]))</pre></td></tr><tr><td class="docs"><p>For the sake of simplicity, assume the sides of the rectangle are always perpendicular to the coordinate axes</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Here we're storing only the diagonal, for a general rectangle definition, the angle between a side and an axis
 would also be needed.</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
@@ -4940,17 +4759,20 @@ would also be needed.</p>
 =&gt; 3
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-08" name="sicp.chpt2.ex2-08"><h1 class="project-name">sicp.chpt2.ex2-08</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-08)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Interval [lb ub])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-interval
-  [lb ub]
-  (Interval. lb ub))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lower-bound
-  [i]
-  (.lb i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn upper-bound
-  [i]
-  (.ub i))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-08
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn add-interval
+  [x y]
+  (make-interval (+ (lower-bound x)
+                    (lower-bound y))
+                 (+ (upper-bound x)
+                    (upper-bound y))))</pre></td></tr><tr><td class="docs"><pre><code>(add-interval (make-interval 4 5)
+              (make-interval 2 3))
+=&gt; #sicp.chpt2.ex2_08.Interval{:lb 6, :ub 8}
+</code></pre>
+</td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn sub-interval
   [x y]
   (let [a (- (lower-bound x)
@@ -4964,32 +4786,12 @@ would also be needed.</p>
 =&gt; #sicp.chpt2.ex2_08.Interval{:lb 2, :ub 2}
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-09" name="sicp.chpt2.ex2-09"><h1 class="project-name">sicp.chpt2.ex2-09</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-09)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Interval [lb ub])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-interval
-  [lb ub]
-  (Interval. lb ub))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lower-bound
-  [i]
-  (.lb i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn upper-bound
-  [i]
-  (.ub i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn add-interval
-  [x y]
-  (make-interval (+ (lower-bound x)
-                    (lower-bound y))
-                 (+ (upper-bound x)
-                    (upper-bound y))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn sub-interval
-  [x y]
-  (let [a (- (lower-bound x)
-             (lower-bound y))
-        b (- (upper-bound x)
-             (upper-bound y))]
-    (if (&lt; a b)
-      (make-interval a b)
-      (make-interval b a))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-09
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]
+        [sicp.chpt2.ex2-08 :only [add-interval
+                                  sub-interval]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn mul-interval
   [x y]
   (let [p1 (* (lower-bound x) (lower-bound y))
@@ -5032,25 +4834,11 @@ would also be needed.</p>
 therefore the width of the multiplication or division of 2 intervals
 isn't a  multiplication or division of the widths of the bounds of the intervals</p>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-10" name="sicp.chpt2.ex2-10"><h1 class="project-name">sicp.chpt2.ex2-10</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-10)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Interval [lb ub])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-interval
-  [lb ub]
-  (Interval. lb ub))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lower-bound
-  [i]
-  (.lb i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn upper-bound
-  [i]
-  (.ub i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn mul-interval
-  [x y]
-  (let [p1 (* (lower-bound x) (lower-bound y))
-        p2 (* (lower-bound x) (upper-bound y))
-        p3 (* (upper-bound x) (lower-bound y))
-        p4 (* (upper-bound x) (upper-bound y))]
-    (make-interval (min p1 p2 p3 p4)
-                   (max p1 p2 p3 p4))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-10
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]
+        [sicp.chpt2.ex2-09 :only [mul-interval]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn div-interval
   [x y]
   (letfn [(spans-zero?
@@ -5066,17 +4854,10 @@ isn't a  multiplication or division of the widths of the bounds of the intervals
 =&gt; *Divide by zero*
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-11" name="sicp.chpt2.ex2-11"><h1 class="project-name">sicp.chpt2.ex2-11</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-11)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Interval [lb ub])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-interval
-  [lb ub]
-  (Interval. lb ub))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lower-bound
-  [i]
-  (.lb i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn upper-bound
-  [i]
-  (.ub i))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-11
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn mul-interval
   [x y]
   (let [lbx (lower-bound x)
@@ -5106,17 +4887,10 @@ isn't a  multiplication or division of the widths of the bounds of the intervals
                 u2 (* ubx uby)]
             (make-interval (if (&lt; l1 l2) l1 l2)
                            (if (&lt; u1 u2) u2 u1))))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-12" name="sicp.chpt2.ex2-12"><h1 class="project-name">sicp.chpt2.ex2-12</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-12)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Interval [lb ub])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-interval
-  [lb ub]
-  (Interval. lb ub))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lower-bound
-  [i]
-  (.lb i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn upper-bound
-  [i]
-  (.ub i))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-12
+  (:use [sicp.chpt2.ex2-07 :only [make-interval
+                                  lower-bound
+                                  upper-bound]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn make-center-percent
   [c p]
   (let [width (Math/abs (* (/ p 100.0) c))]
@@ -5132,14 +4906,22 @@ isn't a  multiplication or division of the widths of the bounds of the intervals
   (let [c (center i)]
     (Math/abs (* (/ (- (upper-bound i) c)
                     c)
-                 100.0))))</pre></td></tr><tr><td class="docs"><pre><code>(center (make-center-percent 100 10))
+                 100.0))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn print-interval
+  [i]
+  (format &quot;(%1.2f, %1.2f%%)&quot;
+          (double (center i))
+          (double (percent i))))</pre></td></tr><tr><td class="docs"><pre><code>(center (make-center-percent 100 10))
 =&gt; 100
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="docs"><pre><code>(percent (make-center-percent 100 10))
 =&gt; 10.0
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-13" name="sicp.chpt2.ex2-13"><h1 class="project-name">sicp.chpt2.ex2-13</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-13)</pre></td></tr><tr><td class="docs"><p>Let \(x \pm a\) and \(y \pm b\) be 2 intervals</p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-13
+  (:use [sicp.chpt2.ex2-12 :only [make-center-percent
+                                  center
+                                  percent]]))</pre></td></tr><tr><td class="docs"><p>Let \(x \pm a\) and \(y \pm b\) be 2 intervals</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\((x \pm a) \times (y \pm b)\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>In [lower bound, upper bound] form</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(\Rightarrow [x (1 - \frac{a}{100}), x(1 + \frac{a}{100})] \times [y (1 - \frac{b}{100}), y(1 + \frac{b}{100})]\)</p>
@@ -5150,96 +4932,17 @@ isn't a  multiplication or division of the widths of the bounds of the intervals
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(\Rightarrow [xy(1 - \frac{a + b}{100}), xy(1 + \frac{a+b}{100})]\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>\(\Rightarrow xy \pm (a+b)\)</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Interval [lb ub])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-interval
-  [lb ub]
-  (Interval. lb ub))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lower-bound
-  [i]
-  (.lb i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn upper-bound
-  [i]
-  (.ub i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-center-percent
-  [c p]
-  (let [width (* (/ p 100) c)]
-    (make-interval (- c width)
-                   (+ c width))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn center
-  [i]
-  (/ (+ (lower-bound i)
-        (upper-bound i))
-     2))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn percent
-  [i]
-  (let [c (center i)]
-    (* (/ (- (upper-bound i) c)
-          c)
-       100)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn mul-interval
   [i1 i2]
   (make-center-percent (* (center i1) (center i2))
                        (+ (percent i1) (percent i2))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-14" name="sicp.chpt2.ex2-14"><h1 class="project-name">sicp.chpt2.ex2-14</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-14)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defrecord Interval [lb ub])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn abs
-  [x]
-  (if (pos? x) x (- x)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-interval
-  [lb ub]
-  (Interval. lb ub))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn lower-bound
-  [i]
-  (.lb i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn upper-bound
-  [i]
-  (.ub i))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn make-center-percent
-  [c p]
-  (let [width (abs (* (/ p 100) c))]
-    (make-interval (- c width)
-                   (+ c width))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn center
-  [i]
-  (/ (+ (lower-bound i)
-        (upper-bound i))
-     2))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn percent
-  [i]
-  (let [c (center i)]
-    (abs (* (/ (- (upper-bound i) c)
-               c)
-            100))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn print-interval
-  [i]
-  (format &quot;(%1.2f, %1.2f%%)&quot;
-          (double (center i))
-          (double (percent i))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn add-interval
-  [x y]
-  (make-interval (+ (lower-bound x)
-                    (lower-bound y))
-                 (+ (upper-bound x)
-                    (upper-bound y))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn mul-interval
-  [x y]
-  (let [p1 (* (lower-bound x) (lower-bound y))
-        p2 (* (lower-bound x) (upper-bound y))
-        p3 (* (upper-bound x) (lower-bound y))
-        p4 (* (upper-bound x) (upper-bound y))]
-    (make-interval (min p1 p2 p3 p4)
-                   (max p1 p2 p3 p4))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn div-interval
-  [x y]
-  (letfn [(spans-zero?
-            [i]
-            (and (&lt;= (lower-bound i) 0)
-                 (&lt;= 0 (upper-bound i))))]
-    (if (spans-zero? y)
-      (throw (ArithmeticException. &quot;Divide by zero&quot;))
-      (mul-interval x
-                    (make-interval (/ (lower-bound y))
-                                   (/ (upper-bound y)))))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-14
+  (:use [sicp.chpt2.ex2-07 :only [make-interval]]
+        [sicp.chpt2.ex2-08 :only [add-interval]]
+        [sicp.chpt2.ex2-09 :only [mul-interval]]
+        [sicp.chpt2.ex2-10 :only [div-interval]]
+        [sicp.chpt2.ex2-12 :only [make-center-percent
+                                  print-interval]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn par1
   [r1 r2]
   (div-interval (mul-interval r1 r2)
@@ -5715,13 +5418,8 @@ removed (<code>rst</code>) and the same subsets with the first element added to 
  =&gt; 5
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-34" name="sicp.chpt2.ex2-34"><h1 class="project-name">sicp.chpt2.ex2-34</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-34)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn accumulate
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (accumulate op initial (rest sequence)))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-34
+  (:use [sicp.chpt2.ex2-33 :only [accumulate]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn horner-eval
   [x coefficient-sequence]
   (accumulate (fn [this-coeff higher-terms] (+ this-coeff (* x higher-terms)))
@@ -5730,13 +5428,8 @@ removed (<code>rst</code>) and the same subsets with the first element added to 
  =&gt; 79
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-35" name="sicp.chpt2.ex2-35"><h1 class="project-name">sicp.chpt2.ex2-35</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-35)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn accumulate
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (accumulate op initial (rest sequence)))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-35
+  (:use [sicp.chpt2.ex2-33 :only [accumulate]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(declare count-leaves)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn count-coll
   [x]
@@ -5750,13 +5443,8 @@ removed (<code>rst</code>) and the same subsets with the first element added to 
  =&gt; 8
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-36" name="sicp.chpt2.ex2-36"><h1 class="project-name">sicp.chpt2.ex2-36</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-36)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn accumulate
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (accumulate op initial (rest sequence)))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-36
+  (:use [sicp.chpt2.ex2-33 :only [accumulate]]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn accumulate-n
   [op init seqs]
   (if (empty? (first seqs))
@@ -5766,19 +5454,9 @@ removed (<code>rst</code>) and the same subsets with the first element added to 
  =&gt; (22 26 30)
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-37" name="sicp.chpt2.ex2-37"><h1 class="project-name">sicp.chpt2.ex2-37</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-37)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn accumulate
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (accumulate op initial (rest sequence)))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn accumulate-n
-  [op init seqs]
-  (if (empty? (first seqs))
-    ()
-    (cons (accumulate op init (map first seqs))
-          (accumulate-n op init (map rest seqs)))))</pre></td></tr><tr><td class="docs"><p><strong>dot-product</strong></p>
+</td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-37
+  (:use [sicp.chpt2.ex2-33 :only [accumulate]])
+  (:use [sicp.chpt2.ex2-36 :only [accumulate-n]]))</pre></td></tr><tr><td class="docs"><p><strong>dot-product</strong></p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn dot-product
   [v w]
@@ -5855,19 +5533,8 @@ removed (<code>rst</code>) and the same subsets with the first element added to 
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-39" name="sicp.chpt2.ex2-39"><h1 class="project-name">sicp.chpt2.ex2-39</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-39
-  (:refer-clojure :exclude [reverse]))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn fold-left
-  [op initial sequence]
-  (loop [acc initial s sequence]
-    (if (empty? s)
-      acc
-      (recur (op acc (first s)) (rest s)))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn fold-right
-  [op initial sequence]
-  (if (empty? sequence)
-    initial
-    (op (first sequence)
-        (fold-right op initial (rest sequence)))))</pre></td></tr><tr><td class="docs"><p><strong>with <code>fold-left</code></strong></p>
+  (:refer-clojure :exclude [reverse])
+  (:use [sicp.chpt2.ex2-38 :only [fold-left fold-right]]))</pre></td></tr><tr><td class="docs"><p><strong>with <code>fold-left</code></strong></p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn reverse
   [sequence]
