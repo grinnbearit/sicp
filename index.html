@@ -6597,7 +6597,7 @@ depends on the implementation of <code>concat</code> which is at worst \(O(n)\)<
 </code></pre>
 </td><td class="codes"></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#sicp.chpt2.ex2-63" name="sicp.chpt2.ex2-63"><h1 class="project-name">sicp.chpt2.ex2-63</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns sicp.chpt2.ex2-63)</pre></td></tr><tr><td class="docs"><p>Both <code>tree-&gt;list-1</code> and <code>tree-&gt;list-2</code> <strong>walk</strong> the tree <a href="http://en.wikipedia.org/wiki/Depth-first_search#Vertex_orderings">in order</a></p>
-</td><td class="codes"></td></tr><tr><td class="docs"><p>Each algorithm walks the tree just once and so have the take the same number of steps \(O(n)\).</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Each algorithm walks the tree just once and so both take the same number of steps \(O(n)\).</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defrecord Tree [entry left right])</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn make-tree
