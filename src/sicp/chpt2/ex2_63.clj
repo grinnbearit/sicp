@@ -2,7 +2,7 @@
 
 ;;; Both `tree->list-1` and `tree->list-2` __walk__ the tree [in order](http://en.wikipedia.org/wiki/Depth-first_search#Vertex_orderings)
 
-;;; Each algorithm walks the tree just once and so have the take the same number of steps \\(O(n)\\).
+;;; Each algorithm walks the tree just once and so both take the same number of steps \\(O(n)\\).
 
 
 (defrecord Tree [entry left right])
