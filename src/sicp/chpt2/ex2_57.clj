@@ -1,25 +1,12 @@
 (ns sicp.chpt2.ex2-57
   (:require [sicp.chpt2.ex2-56 :as ex2-56]))
 
-;;; `make-sum` and `make-product` don't need to be rebound but can be used
-;;; to build an expression
-
-
-(defn make-sum
-  [& args]
-  (list* '+ args))
-
 
 (defn augend
   [e]
   (if (> (count e) 3)
     (conj (drop 2 e) '+)
     (nth e 2)))
-
-
-(defn make-product
-  [& args]
-  (list* '* args))
 
 
 (defn multiplicand
